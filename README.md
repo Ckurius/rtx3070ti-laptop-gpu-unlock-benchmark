@@ -105,5 +105,19 @@ measures its effect. Use at your own risk.
 
 ## Results
 
-- **Series 1 (PyTorch micro-benchmarks and workloads):** [report](reports/20261026-110806_20261026-100526_baseline_vs_20261026-104640_unlocked/report.md)
+**Series 1 – HP Omen 16 (RTX 3070 Ti Laptop, 10de:24e0), both phases at the same ~103 W power cap:**
+
+| Workload | Stock | Unlocked | Change |
+|---|---:|---:|---:|
+| BF16 GEMM 8192³ (FP32 acc.) | 33.5 TFLOPS | 50.2 TFLOPS | **+50 %** |
+| FP16 GEMM 8192³ (FP32 acc.) | 34.0 TFLOPS | 52.3 TFLOPS | **+54 %** |
+| TF32 GEMM 8192³ | 16.9 TFLOPS | 25.5 TFLOPS | **+51 %** |
+| LLM prompt processing, 2048 tokens (BF16) | 15,452 tok/s | 22,200 tok/s | **+44 %** |
+| GPT-124M training (BF16) | 20,318 tok/s | 26,232 tok/s | **+29 %** |
+| LLM token generation, batch 1 | 148 tok/s | 150 tok/s | +1 % |
+
+All validity checks passed. Controls (FP32, INT8, memory bandwidth) unchanged within ±2 %, outputs bit-identical.
+Same power draw, lower clocks, ~48 % more work per watt.
+Full report: [series 1](reports/20261026-110806_20261026-100526_baseline_vs_20261026-104640_unlocked/report.md)
+
 - Series 2 (llama.cpp / GGUF): coming soon
