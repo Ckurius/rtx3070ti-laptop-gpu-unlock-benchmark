@@ -20,6 +20,7 @@ import time
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from common import SUITE_VERSION, describe, now_iso, read_jsonl, setup_logging  # noqa: E402
 from compare import compare_test, fmt, pct  # noqa: E402
+import charts as chm  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 RES = os.path.join(ROOT, "results", "llamacpp")
@@ -126,13 +127,15 @@ def main():
     ap.add_argument("--unlocked")
     ap.add_argument("--out-root", default=os.path.join(ROOT, "reports", "llamacpp"))
     ap.add_argument("--control-tolerance", type=float, default=5.0)
+    ap.add_argument("--system", default=None, help='device name for the title, e.g. "HP Omen 16-k0620ng"')
+    ap.add_argument("--name", default=None, help="fixed report folder name, e.g. series2-llamacpp")
     a = ap.parse_args()
     bdir, udir = a.baseline or newest("baseline"), a.unlocked or newest("unlocked")
     if not bdir or not udir:
         print("Need one baseline and one unlocked llama.cpp run in results/llamacpp/.", file=sys.stderr)
         sys.exit(2)
     base, unl = load(os.path.abspath(bdir)), load(os.path.abspath(udir))
-    out = os.path.join(a.out_root, f"{time.strftime('%Y%m%d-%H%M%S')}_{base['name']}_vs_{unl['name']}")
+    out = os.path.join(a.out_root, a.name or f"{time.strftime('%Y%m%d-%H%M%S')}_{base['name']}_vs_{unl['name']}")
     os.makedirs(out, exist_ok=True)
     log = setup_logging(os.path.join(out, "compare.log"), "llamacpp-compare")
     log.info("Comparing %s with %s", base["name"], unl["name"])
@@ -143,7 +146,8 @@ def main():
         b, u = base["tests"].get(t), unl["tests"].get(t)
         r = compare_test(b, u)
         ex = (u or b).get("extra", {})
-        r["extra_quant"], r["extra_fa"], r["extra_kind"] = ex.get("quant"), ex.get("flash_attn"), ex.get("kind")
+        fa = "on" if t.endswith("_fa-on") else "off" if t.endswith("_fa-off") else str(ex.get("flash_attn"))
+        r["extra_quant"], r["extra_fa"], r["extra_kind"] = ex.get("quant"), fa, ex.get("kind")
         r["test_label"] = f"pp{ex.get('n_prompt')}" if ex.get("kind") == "pp" else f"tg{ex.get('n_gen')}"
         rows.append(r)
         if "change_pct" in r:
@@ -154,12 +158,21 @@ def main():
     ck = checks(base, unl, rows, a.control_tolerance)
     for c in ck:
         (log.info if c["ok"] else log.warning)("CHECK %-45s %s  %s", c["check"], "pass" if c["ok"] else "FAIL", c["detail"])
-    ch = {k: os.path.relpath(v, out) for k, v in charts(rows, os.path.join(out, "charts"), log).items()}
+    cdir = os.path.join(out, "charts")
+    os.makedirs(cdir, exist_ok=True)
+    ch = {}
+    try:
+        ch["change"] = chm.llama_change(rows, cdir)
+        ch["abs"] = chm.llama_abs(rows, cdir, "pp2048", "on")
+    except ImportError:
+        log.warning("matplotlib missing – no charts")
+    rel = lambda p: os.path.relpath(p, out)  # noqa: E731
+    pic = lambda k, alt: chm.picture(ch[k], rel, alt) if ch.get(k) else None  # noqa: E731
 
     eu, g = unl["env"], unl["env"]["gpu"]
     L = []
     w = L.append
-    w(f"# {g.get('name')} – gpu-unlock and llama.cpp (GGUF models)")
+    w(f"# {g.get('name')}{' (' + a.system + ')' if a.system else ''} – gpu-unlock and llama.cpp (GGUF models)")
     w("")
     w(f"*Generated {now_iso()}, suite v{SUITE_VERSION}. Baseline `{base['name']}`, unlocked `{unl['name']}`.*")
     w("")
@@ -185,8 +198,11 @@ def main():
         w("")
     w("¹ sample ranges of both phases overlap (difference within run-to-run noise).")
     w("")
-    if "change" in ch:
-        w(f"![Change per weight format]({ch['change']})")
+    if pic("change", "Change per weight format"):
+        w(pic("change", "Change per weight format"))
+        w("")
+    if pic("abs", "Prompt processing tokens/s"):
+        w(pic("abs", "Prompt processing tokens/s"))
         w("")
     w("How llama.cpp computes each weight format on this GPU (llama.cpp CUDA backend):")
     w("")

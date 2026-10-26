@@ -1,0 +1,4 @@
+$ /home/kiubu/Schreibtisch/Projekte/3070ti-unlock/third_party/llama.cpp/build/bin/llama-bench -m /home/kiubu/Schreibtisch/Projekte/3070ti-unlock/models/qwen2.5-3b-instruct-Q8_0.gguf -p 512 -n 0 -r 7 -ngl 99 -fa off -o json
+# exit=0 duration=4.8s
+ggml_cuda_init: found 1 CUDA devices (Total VRAM: 7842 MiB):
+  Device 0: NVIDIA GeForce RTX 3070 Ti Laptop GPU, compute capability 8.6, VMM: yes, VRAM: 7842 MiB

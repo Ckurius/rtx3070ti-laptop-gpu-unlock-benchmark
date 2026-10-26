@@ -1,0 +1,4 @@
+$ journalctl -k -b --no-pager -o short-iso 2>/dev/null | grep -i gpu_unlock || dmesg 2>/dev/null | grep -i gpu_unlock
+# exit=0
+2026-10-26T12:52:52+01:00 Kiubu kernel: gpu_unlock: loading out-of-tree module taints kernel.
+2026-10-26T12:52:52+01:00 Kiubu kernel: gpu_unlock: module verification failed: signature and/or required key missing - tainting kernel

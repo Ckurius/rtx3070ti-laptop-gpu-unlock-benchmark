@@ -1,0 +1,5 @@
+$ free -b
+# exit=0
+total        used        free      shared  buff/cache   available
+Mem:     16413491200  4909522944  6750400512   800542720  5231071232 11503968256
+Swap:     8589930496           0  8589930496

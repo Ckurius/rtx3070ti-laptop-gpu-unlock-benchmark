@@ -44,7 +44,32 @@ tests (FP32, INT8, memory bandwidth) stayed unchanged within ±2 %. GEMM outputs
 and a repeat run of the unlocked phase reproduced the results within 0.6 %.
 
 **Full report** with every test, power/thermal data and raw logs: [series 1 – PyTorch](reports/series1-pytorch/report.md)  
-Series 2 (llama.cpp with GGUF models: BF16, F16, Q8_0, Q4_K_M) is in progress.
+### Series 2: llama.cpp with real GGUF models
+
+One model (Qwen2.5-3B-Instruct) in four weight formats, all created from the same BF16 file, measured with
+`llama-bench` (7 repetitions, all layers on the GPU, flash attention off and on).
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="reports/llamacpp/series2-llamacpp/charts/llamacpp_change_dark.png">
+  <img alt="llama.cpp: effect of gpu-unlock per weight format" src="reports/llamacpp/series2-llamacpp/charts/llamacpp_change_light.png">
+</picture>
+
+| Prompt processing, 2048 tokens, flash attention on | Stock | Unlocked | Change |
+|---|---:|---:|---:|
+| BF16 | 3,902 tok/s | 4,983 tok/s | **+28 %** |
+| F16 | 5,049 tok/s | 5,056 tok/s | +0.1 % |
+| Q8_0 | 5,449 tok/s | 5,515 tok/s | +1.2 % |
+| Q4_K_M | 5,119 tok/s | 5,235 tok/s | +2.3 % |
+| Token generation, all formats | | | within ±1.1 % |
+
+**Only BF16 models benefit.** llama.cpp computes BF16 weights with FP32 accumulation, which is exactly the path
+gpu-unlock opens. Stock BF16 is 23 % slower than F16 at prompt processing; unlocked, it is on par. F16 weights use FP16
+accumulation, which was never rate-limited on GeForce. Q8_0 and Q4_K_M run on INT8 kernels. Both stay within
+run-to-run noise. **For everyday quantized GGUF use (Ollama, LM Studio) the unlock brings no measurable gain**; the
+benefit is in BF16 and PyTorch workloads (series 1). All 16 validity checks passed (same llama.cpp build,
+SHA-256-identical model files).
+
+**Full report:** [series 2 – llama.cpp](reports/llamacpp/series2-llamacpp/report.md)
 
 ## What is measured
 

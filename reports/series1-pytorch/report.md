@@ -1,6 +1,6 @@
 # NVIDIA GeForce RTX 3070 Ti Laptop GPU (HP Omen 16-k0620ng) – gpu-unlock benchmark: stock vs. unlocked
 
-*Generated 2026-10-26T11:29:15.322+00:00 by the benchmark suite v1.0.0. Baseline run `20261026-100526_baseline`, unlocked run `20261026-104640_unlocked`.*
+*Generated 2026-10-26T13:29:22.903+01:00 by the benchmark suite v1.0.0. Baseline run `20261026-100526_baseline`, unlocked run `20261026-104640_unlocked`.*
 
 ## Summary
 
@@ -227,17 +227,17 @@ Test descriptions:
 
 Additional complete runs of the same phase, compared with the runs used above (median per run):
 
-| Test | `20261026-100526_baseline` | `20261026-104640_unlocked` | `20261026-114448_unlocked_unlocked-first` | Spread of unlocked runs |
-|---|---:|---:|---:|---:|
-| BF16 GEMM 8192³ (FP32 acc.) | 33.48 | 50.23 | 50.52 | 0.6 % |
-| FP16 GEMM 8192³ (FP32 acc.) | 34.03 | 52.31 | 52.00 | 0.6 % |
-| TF32 GEMM 8192³ | 16.87 | 25.46 | 25.56 | 0.4 % |
-| Attention fwd+bwd, BF16 | 30.00 | 41.68 | 41.90 | 0.5 % |
-| LLM prompt processing (2048 tok) | 15,451.60 | 22,199.93 | 22,329.36 | 0.6 % |
-| LLM token generation (batch 1) | 148.16 | 149.72 | 149.72 | 0.0 % |
-| GPT-124M training, BF16 | 20,318.14 | 26,231.97 | 26,203.71 | 0.1 % |
-| ResNet-50 training, BF16 | 476.49 | 544.83 | 543.70 | 0.2 % |
-| Sustained BF16 GEMM (median of all windows) | 33.66 | 49.95 | 50.29 | 0.7 % |
+| Test | `20261026-100526_baseline` | `20261026-104640_unlocked` | `20261026-114448_unlocked_unlocked-first` | `20261026-125547_baseline_stock-repeat` | Spread of unlocked runs |
+|---|---:|---:|---:|---:|---:|
+| BF16 GEMM 8192³ (FP32 acc.) | 33.48 | 50.23 | 50.52 | 33.77 | 0.6 % |
+| FP16 GEMM 8192³ (FP32 acc.) | 34.03 | 52.31 | 52.00 | 34.10 | 0.6 % |
+| TF32 GEMM 8192³ | 16.87 | 25.46 | 25.56 | 16.88 | 0.4 % |
+| Attention fwd+bwd, BF16 | 30.00 | 41.68 | 41.90 | 29.94 | 0.5 % |
+| LLM prompt processing (2048 tok) | 15,451.60 | 22,199.93 | 22,329.36 | 15,436.48 | 0.6 % |
+| LLM token generation (batch 1) | 148.16 | 149.72 | 149.72 | 148.18 | 0.0 % |
+| GPT-124M training, BF16 | 20,318.14 | 26,231.97 | 26,203.71 | 20,251.30 | 0.1 % |
+| ResNet-50 training, BF16 | 476.49 | 544.83 | 543.70 | 477.28 | 0.2 % |
+| Sustained BF16 GEMM (median of all windows) | 33.66 | 49.95 | 50.29 | 33.60 | 0.7 % |
 
 ## Limitations
 

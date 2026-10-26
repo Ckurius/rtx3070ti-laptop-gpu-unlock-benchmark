@@ -146,7 +146,11 @@ def detect_unlock(raw: dict, bus_kernel: str) -> dict:
     lines = [ln for ln in log.splitlines() if "gpu_unlock" in ln.lower()]
     mine = [ln for ln in lines if not bus_kernel or bus_kernel in ln.lower()] or lines
     unlocked = any(re.search(r"gpu_unlock: (unlocked|still unlocked|unlocked again)", ln) for ln in mine)
-    failed = [ln for ln in mine if "failed" in ln]
+    # Only the module's own error messages count. Kernel notices such as
+    # "gpu_unlock: module verification failed: signature ... - tainting kernel" are not unlock failures.
+    benign = ("module verification failed", "taints kernel", "tainting kernel")
+    failed = [ln for ln in mine if re.search(r"gpu_unlock: (unlock|unlock after resume|firmware load) failed", ln)
+              and not any(b in ln for b in benign)]
     if unlocked and not failed:
         state = "unlocked"
     elif failed:

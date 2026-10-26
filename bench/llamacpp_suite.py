@@ -111,7 +111,8 @@ def run_test(t: dict, args, log, tele: Telemetry, raw_dir: str) -> dict:
     for k in ("build_commit", "build_number", "model_type", "model_size", "model_n_params", "n_batch", "n_ubatch",
               "type_k", "type_v", "flash_attn", "n_gpu_layers", "gpu_info", "backends", "avg_ts", "stddev_ts", "test_time"):
         if k in r:
-            rec["extra"][k] = r[k]
+            # keep our own "on"/"off" label; llama-bench reports flash_attn as 0/1
+            rec["extra"]["llama_bench_" + k if k == "flash_attn" else k] = r[k]
     if rec["stats"].get("median") and win.get("power_avg_w"):
         rec["perf_per_watt"] = rec["stats"]["median"] / win["power_avg_w"]
     return rec

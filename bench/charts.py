@@ -300,3 +300,78 @@ def picture(paths: dict, rel, alt: str) -> str:
     """GitHub-compatible <picture> that follows the reader's light/dark theme."""
     return (f'<picture>\n  <source media="(prefers-color-scheme: dark)" srcset="{rel(paths["dark"])}">\n'
             f'  <img alt="{alt}" src="{rel(paths["light"])}">\n</picture>')
+
+
+# ---------------------------------------------------------------------------------------------- llama.cpp series
+
+def llama_change(rows, out_dir):
+    """Series 2: % change per weight format; panels = flash attention off/on, bars = pp512 / pp2048 / tg."""
+    ok = [r for r in rows if "change_pct" in r]
+    if not ok:
+        return None
+    quants = list(dict.fromkeys(r["extra_quant"] for r in ok))
+    tests = list(dict.fromkeys(r["test_label"] for r in ok))
+    names = {t: (f"prompt {t[2:]} tok" if t.startswith("pp") else f"generation {t[2:]} tok") for t in tests}
+    cols = [UNL, BASE, "aqua"]
+    plt = _plt()
+    out = {}
+    for th, t in THEMES.items():
+        _style(plt, t)
+        fig, axes = plt.subplots(1, 2, figsize=(13, 4.4), sharey=True)
+        allv = [r["change_pct"] for r in ok]
+        for ax, fa in zip(axes, ("off", "on")):
+            w = 0.8 / max(1, len(tests))
+            for j, tl in enumerate(tests):
+                xs, vs = [], []
+                for i, q in enumerate(quants):
+                    r = next((r for r in ok if r["extra_quant"] == q and r["test_label"] == tl and r["extra_fa"] == fa), None)
+                    if r:
+                        xs.append(i + (j - (len(tests) - 1) / 2) * w)
+                        vs.append(r["change_pct"])
+                ax.bar(xs, vs, w, color=t[cols[j % 3]], edgecolor=t["surface"], linewidth=1.5, label=names[tl])
+                for x, v in zip(xs, vs):  # compact labels: bars are narrow
+                    ax.text(x, v + (0.8 if v >= 0 else -0.8), f"{v:+.0f}" if abs(v) >= 1 else f"{v:+.1f}",
+                            ha="center", va="bottom" if v >= 0 else "top", fontsize=7.5, color=t["text"])
+            ax.axhline(0, color=t["axis"], lw=1)
+            ax.set_xticks(range(len(quants)), quants)
+            ax.grid(axis="x", visible=False)
+            ax.set_title(f"flash attention {fa}", fontsize=10.5)
+        axes[0].set_ylabel("change unlocked vs. stock (%), labels in %")
+        axes[0].set_ylim(min(0, min(allv)) - 5, max(allv) * 1.15 + 5)
+        h_, l_ = axes[0].get_legend_handles_labels()
+        fig.legend(h_, l_, loc="upper right", ncols=len(tests), fontsize=9, bbox_to_anchor=(0.995, 1.0))
+        fig.suptitle("llama.cpp: effect of gpu-unlock per weight format", x=0.01, ha="left", fontweight="bold",
+                     color=t["text"])
+        fig.tight_layout()
+        out[th] = _save(fig, out_dir, "llamacpp_change", th)
+        plt.close(fig)
+    return out
+
+
+def llama_abs(rows, out_dir, test_label="pp2048", fa="on"):
+    """Absolute tokens/s, stock vs. unlocked, for one test across weight formats."""
+    rr = [r for r in rows if "change_pct" in r and r["test_label"] == test_label and r["extra_fa"] == fa]
+    if not rr:
+        return None
+    plt = _plt()
+    out = {}
+    for th, t in THEMES.items():
+        _style(plt, t)
+        fig, ax = plt.subplots(figsize=(8, 3.8))
+        xi = range(len(rr))
+        ax.bar([i - 0.2 for i in xi], [r["median_b"] for r in rr], 0.4, color=t[BASE], edgecolor=t["surface"], linewidth=2, label="stock")
+        ax.bar([i + 0.2 for i in xi], [r["median_u"] for r in rr], 0.4, color=t[UNL], edgecolor=t["surface"], linewidth=2, label="unlocked")
+        top = max(max(r["median_b"], r["median_u"]) for r in rr)
+        for i, r in enumerate(rr):
+            ax.text(i + 0.2, r["median_u"] + top * 0.02, _pct(r["change_pct"]), ha="center", fontsize=9,
+                    color=t["text"], fontweight="bold")
+        ax.set_ylim(0, top * 1.15)
+        ax.set_xticks(list(xi), [r["extra_quant"] for r in rr])
+        ax.grid(axis="x", visible=False)
+        ax.set_ylabel("tokens/s")
+        kind = f"prompt processing, {test_label[2:]} tokens" if test_label.startswith("pp") else f"generation, {test_label[2:]} tokens"
+        ax.set_title(f"llama.cpp {kind} (flash attention {fa})")
+        ax.legend(loc="upper left", fontsize=9, ncols=2)
+        out[th] = _save(fig, out_dir, f"llamacpp_{test_label}_fa-{fa}", th)
+        plt.close(fig)
+    return out

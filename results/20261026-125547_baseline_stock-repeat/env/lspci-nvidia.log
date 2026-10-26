@@ -1,0 +1,4 @@
+$ lspci -nn -D -d 10de:
+# exit=0
+0000:01:00.0 VGA compatible controller [0300]: NVIDIA Corporation GA104M [Geforce RTX 3070 Ti Laptop GPU] [10de:24e0] (rev a1)
+0000:01:00.1 Audio device [0403]: NVIDIA Corporation GA104 High Definition Audio Controller [10de:228b] (rev a1)

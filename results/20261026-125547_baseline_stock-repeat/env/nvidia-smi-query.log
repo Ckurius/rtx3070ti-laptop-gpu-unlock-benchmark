@@ -1,0 +1,2 @@
+# name,pci.bus_id,pci.device_id,pci.sub_device_id,vbios_version,driver_version,power.limit,power.default_limit,power.min_limit,power.max_limit,clocks.max.sm,clocks.max.mem,memory.total,pcie.link.gen.max,pcie.link.width.max
+NVIDIA GeForce RTX 3070 Ti Laptop GPU, 00000000:01:00.0, 0x24E010DE, 0x8A4C103C, 94.04.7C.00.10, 595.99.02, [N/A], 80.00 W, 1.00 W, 150.00 W, 1635 MHz, 5871 MHz, 8192 MiB, 4, 16

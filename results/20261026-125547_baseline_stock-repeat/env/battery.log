@@ -1,0 +1,3 @@
+$ for d in /sys/class/power_supply/BAT*; do echo "$d status=$(cat $d/status) capacity=$(cat $d/capacity)"; done
+# exit=0
+/sys/class/power_supply/BAT0 status=Full capacity=100

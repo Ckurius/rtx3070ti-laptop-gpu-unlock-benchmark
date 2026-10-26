@@ -1,0 +1,4 @@
+$ cat /sys/firmware/acpi/platform_profile /sys/firmware/acpi/platform_profile_choices
+# exit=0
+performance
+cool quiet balanced performance

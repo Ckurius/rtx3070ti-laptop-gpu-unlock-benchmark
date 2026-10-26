@@ -1,0 +1,3 @@
+$ powerprofilesctl get 2>/dev/null
+# exit=0
+performance
