@@ -4,7 +4,7 @@
 
 **Result:** Unlocked, and FP16/BF16 got faster
 
-**Card:** NVIDIA GeForce RTX 3070 Ti Laptop GPU 8 GB in <laptop model> (fill in)
+**Card:** NVIDIA GeForce RTX 3070 Ti Laptop GPU 8 GB in HP Omen 16-k0620ng (i9-12900H)
 
 **PCI IDs:**
 ```text

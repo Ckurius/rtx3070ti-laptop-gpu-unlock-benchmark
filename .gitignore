@@ -8,3 +8,5 @@ logs/
 results/*_smoke/
 results/llamacpp/*_smoke/
 *.tar.gz
+Anleitung.txt
+test-llm/
