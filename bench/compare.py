@@ -25,6 +25,7 @@ import time
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from common import SUITE_VERSION, describe, now_iso, read_jsonl, setup_logging  # noqa: E402
+import charts as ch  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CAT_ORDER = ["gemm", "memory", "kernel", "workload", "sustained"]
@@ -289,13 +290,16 @@ def pct(v, nd=1):
     return "–" if v is None else f"{v:+.{nd}f} %"
 
 
-def write_report(out, base, unl, rows, checks, corr, charts, rel_results):
+def write_report(out, base, unl, rows, checks, corr, charts, rel_results, system=None, repeats=None):
     eb, eu = base["env"], unl["env"]
     g = eu["gpu"]
+    rel = lambda p: os.path.relpath(p, out)  # noqa: E731
+    pic = lambda k, alt: ch.picture(charts[k], rel, alt) if charts.get(k) else None  # noqa: E731
+    lim = enforced_limit(unl)
     by_id = {r["test_id"]: r for r in rows}
     L = []
     w = L.append
-    w(f"# {g.get('name', 'GPU')} – gpu-unlock benchmark: baseline vs. unlocked")
+    w(f"# {g.get('name', 'GPU')}{' (' + system + ')' if system else ''} – gpu-unlock benchmark: stock vs. unlocked")
     w("")
     w(f"*Generated {now_iso()} by the benchmark suite v{SUITE_VERSION}. "
       f"Baseline run `{base['name']}`, unlocked run `{unl['name']}`.*")
@@ -319,9 +323,45 @@ def write_report(out, base, unl, rows, checks, corr, charts, rel_results):
     w("")
     w(_conclusions(rows))
     w("")
-    if "overview" in charts:
-        w(f"![Change per test]({charts['overview']})")
+    if pic("headline", "Throughput gain per workload"):
+        w(pic("headline", "Throughput gain per workload"))
         w("")
+    eff = _efficiency_rows(by_id)
+    if eff:
+        sus = by_id.get("sustained_gemm_bf16_8192") or eff[0]
+        w(f"**Efficiency:** the GPU draws the same power in both phases (≈ {fmt(sus.get('power_b'), 0)} W vs. "
+          f"{fmt(sus.get('power_u'), 0)} W under load, enforced limit {fmt(lim, 0)} W) but finishes "
+          f"{sus['change_pct']:.0f} % more work, so energy per unit of work drops by "
+          f"{abs(sus['energy_change_pct']):.0f} %. See [Efficiency](#efficiency).")
+        w("")
+
+    # --- efficiency
+    if eff:
+        w("## Efficiency")
+        w("")
+        w("A laptop GPU runs at its power cap under sustained tensor load. gpu-unlock does not raise that cap: "
+          "the card draws the same watts, runs at a *lower* SM clock, and still finishes more work, because each "
+          "tensor-core instruction now completes at the full rate. More work for the same energy means higher "
+          "efficiency: less energy per token, image or matrix, less heat for the same job, and on battery more "
+          "work per charge.")
+        w("")
+        w("| Workload | Power stock → unlocked (W) | SM clock stock → unlocked (MHz) | Work per watt | Energy per unit of work |")
+        w("|---|---|---|---:|---:|")
+        for r in eff:
+            w(f"| {ch.label(r['test_id'])} | {fmt(r['power_b'], 0)} → {fmt(r['power_u'], 0)} | "
+              f"{fmt(r['clock_b'], 0)} → {fmt(r['clock_u'], 0)} | **{pct(r['ppw_change_pct'], 0)}** | "
+              f"**{pct(r['energy_change_pct'], 0)}** |")
+        w("")
+        p = by_id.get("llm_prefill_bf16_p2048")
+        if p and p.get("power_b") and p.get("power_u"):
+            wh_b = p["power_b"] / p["median_b"] * 1e6 / 3600
+            wh_u = p["power_u"] / p["median_u"] * 1e6 / 3600
+            w(f"Example: processing one million prompt tokens (2048-token prompts, BF16) takes "
+              f"{fmt(wh_b, 2)} Wh of GPU energy on the stock card and {fmt(wh_u, 2)} Wh unlocked.")
+            w("")
+        if pic("efficiency", "Throughput, power and clock change"):
+            w(pic("efficiency", "Throughput, power and clock change"))
+            w("")
 
     # --- system
     w("## Test system")
@@ -332,7 +372,8 @@ def write_report(out, base, unl, rows, checks, corr, charts, rel_results):
         ("GPU", f"{g.get('name')} ({g.get('pci.device_id')}, subsystem {g.get('pci.sub_device_id')})"),
         ("SMs / VRAM", f"{eu['torch']['sm_count']} SMs, {eu['torch']['total_mem_mib']} MiB"),
         ("VBIOS", g.get("vbios_version")),
-        ("Power limit", f"{g.get('power.limit')} (default {g.get('power.default_limit')}, "
+        ("Power limit", f"{fmt(lim, 0)} W enforced under load (NVML; nvidia-smi current limit {g.get('power.limit')}, "
+                        f"default {g.get('power.default_limit')}, "
                         f"max {g.get('power.max_limit')}), Dynamic Boost {eu.get('notebook_dynamic_boost')}, "
                         f"nvidia-powerd {eu.get('nvidia_powerd')}"),
         ("Host", f"{eu.get('cpu')}, {round((eu.get('ram_bytes') or 0) / 2**30)} GiB RAM"),
@@ -407,6 +448,9 @@ def write_report(out, base, unl, rows, checks, corr, charts, rel_results):
 
     # --- results
     w("## Results")
+    if pic("overview", "Change per test"):
+        w("")
+        w(pic("overview", "Change per test"))
     for cat in CAT_ORDER:
         rr = [r for r in rows if r["category"] == cat]
         if not rr:
@@ -426,9 +470,9 @@ def write_report(out, base, unl, rows, checks, corr, charts, rel_results):
               f"{'yes' if r['separated'] else 'no'} | {fmt(r['power_b'], 0)} → {fmt(r['power_u'], 0)} | "
               f"{pct(r.get('ppw_change_pct'))} | {fmt(r['clock_b'], 0)} → {fmt(r['clock_u'], 0)} | "
               f"{fmt(r['temp_b'], 0)} → {fmt(r['temp_u'], 0)} |")
-        if cat == "gemm" and "gemm" in charts:
+        if cat == "gemm" and pic("gemm", "GEMM throughput"):
             w("")
-            w(f"![GEMM throughput]({charts['gemm']})")
+            w(pic("gemm", "GEMM throughput"))
     w("")
     w("Test descriptions:")
     w("")
@@ -455,9 +499,30 @@ def write_report(out, base, unl, rows, checks, corr, charts, rel_results):
         thr = lambda d: ", ".join(f"{k} {v}%" for k, v in d.items()) or "none"  # noqa: E731
         w(f"| Throttle reasons (share of samples) | {thr(s.get('throttle_b', {}))} | {thr(s.get('throttle_u', {}))} |")
         w("")
-        if "sustained" in charts:
-            w(f"![Sustained run]({charts['sustained']})")
+        if pic("sustained", "Sustained run"):
+            w(pic("sustained", "Sustained run"))
             w("")
+
+    # --- reproducibility
+    if repeats:
+        w("## Reproducibility")
+        w("")
+        w("Additional complete runs of the same phase, compared with the runs used above (median per run):")
+        w("")
+        names = [base["name"], unl["name"]] + [r["name"] for r in repeats]
+        w("| Test | " + " | ".join(f"`{n}`" for n in names) + " | Spread of unlocked runs |")
+        w("|---|" + "---:|" * len(names) + "---:|")
+        for tid, lab in HEADLINE:
+            vals = []
+            for run in [base, unl] + list(repeats):
+                t = run["tests"].get(tid)
+                vals.append(t["stats"].get("median") if t and t.get("status") == "ok" else None)
+            if vals[0] is None:
+                continue
+            ul = [v for v, run in zip(vals, [base, unl] + list(repeats)) if v is not None and run["env"]["run"]["phase"] == "unlocked"]
+            spread = (max(ul) / min(ul) - 1) * 100 if len(ul) > 1 else None
+            w(f"| {lab} | " + " | ".join(fmt(v) for v in vals) + f" | {fmt(spread, 1, ' %')} |")
+        w("")
 
     # --- caveats + raw data
     w("## Limitations")
@@ -482,6 +547,26 @@ def write_report(out, base, unl, rows, checks, corr, charts, rel_results):
         fh.write("\n".join(L))
 
 
+EFF_IDS = ["gemm_bf16_8192", "gemm_fp16_8192", "gemm_tf32_8192", "sdpa_fwdbwd_bf16", "llm_prefill_bf16_p2048",
+           "train_gpt124m_bf16", "resnet50_train_bf16", "sustained_gemm_bf16_8192"]
+
+
+def _efficiency_rows(by_id):
+    out = []
+    for i in EFF_IDS:
+        r = by_id.get(i)
+        if r and r.get("ppw_change_pct") is not None and r.get("clock_b"):
+            r["energy_change_pct"] = (1 / (1 + r["ppw_change_pct"] / 100) - 1) * 100
+            out.append(r)
+    return out
+
+
+def enforced_limit(run):
+    vals = [t["telemetry"].get("power_limit_w") for t in run["tests"].values()
+            if t.get("status") == "ok" and (t.get("telemetry") or {}).get("power_limit_w")]
+    return describe(vals).get("median") if vals else None
+
+
 def _conclusions(rows) -> str:
     by = {r["test_id"]: r for r in rows if "change_pct" in r}
     parts = []
@@ -501,7 +586,7 @@ def _conclusions(rows) -> str:
     return " ".join(parts)
 
 
-def write_compat(out, base, unl, rows):
+def write_compat(out, base, unl, rows, system=None):
     eu = unl["env"]
     g = eu["gpu"]
     by = {r["test_id"]: r for r in rows}
@@ -517,7 +602,7 @@ def write_compat(out, base, unl, rows):
         "# Compatibility report (paste into the gpu-unlock issue form)", "",
         f"**Title:** Compatibility report: {g.get('name')} ({_pci_id(lspci)})", "",
         f"**Result:** {result}", "",
-        f"**Card:** {g.get('name')} 8 GB in <laptop model> (fill in)", "",
+        f"**Card:** {g.get('name')} {round(unl['env']['torch']['total_mem_mib'] / 1024)} GB in {system or '<laptop model> (fill in)'}", "",
         "**PCI IDs:**", "```text", lspci, "```", "",
         f"**VBIOS version:** {g.get('pci.bus_id')}, {g.get('vbios_version')}", "",
         "**Is the card modified?** Stock", "",
@@ -528,7 +613,7 @@ def write_compat(out, base, unl, rows):
         f"**gpu-unlock version and install method:** {eu['gpu_unlock_checkout'].get('commit') or '?'}, make install", "",
         f"**Kernel command line:** `{eu.get('cmdline')}`", "",
         "**Setup:**", "```text",
-        f"Laptop (Optimus, iGPU drives the display), single GPU, power limit {g.get('power.limit')} "
+        f"Laptop (Optimus, iGPU drives the display), single GPU, enforced power limit {fmt(enforced_limit(unl), 0)} W "
         f"(max {g.get('power.max_limit')}), Dynamic Boost {eu.get('notebook_dynamic_boost')}, "
         f"nvidia-powerd {eu.get('nvidia_powerd')}, NVIDIA Runtime D3 {eu.get('nvidia_runtime_d3')}, "
         f"Secure Boot: {eu.get('secure_boot') or 'unknown'}", "```", "",
@@ -566,6 +651,8 @@ def main():
     ap.add_argument("--unlocked", help="unlocked run directory (default: newest)")
     ap.add_argument("--out-root", default=os.path.join(ROOT, "reports"))
     ap.add_argument("--control-tolerance", type=float, default=5.0, help="max |change| %% for control tests")
+    ap.add_argument("--system", default=None, help='device name for titles, e.g. "HP Omen 16-k0620ng"')
+    ap.add_argument("--no-repeats", action="store_true", help="do not list other runs of the same phase")
     args = ap.parse_args()
 
     bdir = args.baseline or (find_runs("baseline") or [None])[-1]
@@ -595,11 +682,27 @@ def main():
     for c in corr:
         log.info("CORRECTNESS %-18s identical=%s err_b=%s err_u=%s", c["test_id"], c["identical"], c["err_b"], c["err_u"])
 
-    charts_abs = make_charts(rows, base, unl, os.path.join(out, "charts"), log)
-    charts = {k: os.path.relpath(v, out) for k, v in charts_abs.items()}
+    cdir = os.path.join(out, "charts")
+    os.makedirs(cdir, exist_ok=True)
+    charts = {}
+    try:
+        sub = (f"{args.system + ', ' if args.system else ''}{unl['env']['gpu'].get('name')}, both phases at the same "
+               f"power cap (≈ {fmt(enforced_limit(unl), 0)} W)")
+        charts["headline"] = ch.headline(rows, cdir, [t for t, _ in HEADLINE if t != "llm_decode_bf16_b1"], sub)
+        charts["overview"] = ch.overview(rows, cdir)
+        charts["gemm"] = ch.gemm(rows, cdir)
+        charts["efficiency"] = ch.efficiency(rows, cdir, EFF_IDS)
+        charts["sustained"] = ch.sustained(base["path"], unl["path"], cdir)
+    except ImportError:
+        log.warning("matplotlib not installed – charts skipped")
+    repeats = []
+    if not args.no_repeats:
+        for d in find_runs("unlocked") + find_runs("baseline"):
+            if os.path.abspath(d) not in (base["path"], unl["path"]):
+                repeats.append(load_run(os.path.abspath(d)))
     rel_results = lambda p: os.path.relpath(p, out)  # noqa: E731
-    write_report(out, base, unl, rows, checks, corr, charts, rel_results)
-    write_compat(out, base, unl, rows)
+    write_report(out, base, unl, rows, checks, corr, charts, rel_results, args.system, repeats)
+    write_compat(out, base, unl, rows, args.system)
 
     flat = [{k: (json.dumps(v) if isinstance(v, (dict, list)) else v) for k, v in r.items()} for r in rows]
     keys = list(dict.fromkeys(k for r in flat for k in r))

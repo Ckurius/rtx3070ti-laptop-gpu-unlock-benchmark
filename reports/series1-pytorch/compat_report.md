@@ -4,7 +4,7 @@
 
 **Result:** Unlocked, and FP16/BF16 got faster
 
-**Card:** NVIDIA GeForce RTX 3070 Ti Laptop GPU 8 GB in HP Omen 16-k0620ng (i9-12900H)
+**Card:** NVIDIA GeForce RTX 3070 Ti Laptop GPU 8 GB in HP Omen 16-k0620ng
 
 **PCI IDs:**
 ```text
@@ -30,7 +30,7 @@
 
 **Setup:**
 ```text
-Laptop (Optimus, iGPU drives the display), single GPU, power limit [N/A] (max 150.00 W), Dynamic Boost Supported, nvidia-powerd active, NVIDIA Runtime D3 Disabled, Secure Boot: SecureBoot disabled
+Laptop (Optimus, iGPU drives the display), single GPU, enforced power limit 105 W (max 150.00 W), Dynamic Boost Supported, nvidia-powerd active, NVIDIA Runtime D3 Disabled, Secure Boot: SecureBoot disabled
 ```
 
 **Kernel log:**

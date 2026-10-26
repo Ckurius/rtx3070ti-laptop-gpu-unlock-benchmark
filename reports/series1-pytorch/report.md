@@ -1,6 +1,6 @@
-# NVIDIA GeForce RTX 3070 Ti Laptop GPU – gpu-unlock benchmark: baseline vs. unlocked
+# NVIDIA GeForce RTX 3070 Ti Laptop GPU (HP Omen 16-k0620ng) – gpu-unlock benchmark: stock vs. unlocked
 
-*Generated 2026-10-26T11:08:07.370+01:00 by the benchmark suite v1.0.0. Baseline run `20261026-100526_baseline`, unlocked run `20261026-104640_unlocked`.*
+*Generated 2026-10-26T11:29:15.322+00:00 by the benchmark suite v1.0.0. Baseline run `20261026-100526_baseline`, unlocked run `20261026-104640_unlocked`.*
 
 ## Summary
 
@@ -18,7 +18,34 @@
 
 The largest GEMM gain is **+56.9 %** (`gemm_bf16_4096`). Control tests moved by at most 2.0 % (`gemm_fp32_2048`), so the two boots are otherwise comparable. End-to-end workloads: `llm_prefill_bf16_p2048` +43.7 %, `llm_prefill_bf16_p512` +35.2 %, `train_gpt124m_bf16` +29.1 %, `train_gpt124m_fp16` +26.1 %, `resnet50_infer_fp16` +16.9 %, `llm_decode_bf16_b16` +15.6 %, `resnet50_train_bf16` +14.3 %, `llm_decode_bf16_b1` +1.1 %.
 
-![Change per test](charts/overview_change.png)
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="charts/headline_dark.png">
+  <img alt="Throughput gain per workload" src="charts/headline_light.png">
+</picture>
+
+**Efficiency:** the GPU draws the same power in both phases (≈ 103 W vs. 103 W under load, enforced limit 105 W) but finishes 48 % more work, so energy per unit of work drops by 33 %. See [Efficiency](#efficiency).
+
+## Efficiency
+
+A laptop GPU runs at its power cap under sustained tensor load. gpu-unlock does not raise that cap: the card draws the same watts, runs at a *lower* SM clock, and still finishes more work, because each tensor-core instruction now completes at the full rate. More work for the same energy means higher efficiency: less energy per token, image or matrix, less heat for the same job, and on battery more work per charge.
+
+| Workload | Power stock → unlocked (W) | SM clock stock → unlocked (MHz) | Work per watt | Energy per unit of work |
+|---|---|---|---:|---:|
+| BF16 matmul 8192³ | 103 → 103 | 1,458 → 1,109 | **+49 %** | **-33 %** |
+| FP16 matmul 8192³ | 104 → 104 | 1,472 → 1,134 | **+54 %** | **-35 %** |
+| TF32 matmul 8192³ | 105 → 104 | 1,466 → 1,118 | **+52 %** | **-34 %** |
+| Attention fwd+bwd (BF16) | 103 → 102 | 1,524 → 1,272 | **+41 %** | **-29 %** |
+| LLM prompt processing, 2048 tok | 103 → 103 | 1,529 → 1,252 | **+43 %** | **-30 %** |
+| GPT-124M training (BF16) | 101 → 101 | 1,610 → 1,435 | **+29 %** | **-22 %** |
+| ResNet-50 training (BF16) | 102 → 101 | 1,491 → 1,402 | **+15 %** | **-13 %** |
+| Sustained BF16 load, 3 min | 103 → 103 | 1,459 → 1,099 | **+48 %** | **-33 %** |
+
+Example: processing one million prompt tokens (2048-token prompts, BF16) takes 1.85 Wh of GPU energy on the stock card and 1.29 Wh unlocked.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="charts/efficiency_dark.png">
+  <img alt="Throughput, power and clock change" src="charts/efficiency_light.png">
+</picture>
 
 ## Test system
 
@@ -27,7 +54,7 @@ The largest GEMM gain is **+56.9 %** (`gemm_bf16_4096`). Control tests moved by 
 | GPU | NVIDIA GeForce RTX 3070 Ti Laptop GPU (0x24E010DE, subsystem 0x8A4C103C) |
 | SMs / VRAM | 46 SMs, 7842 MiB |
 | VBIOS | 94.04.7C.00.10 |
-| Power limit | [N/A] (default 80.00 W, max 150.00 W), Dynamic Boost Supported, nvidia-powerd active |
+| Power limit | 105 W enforced under load (NVML; nvidia-smi current limit [N/A], default 80.00 W, max 150.00 W), Dynamic Boost Supported, nvidia-powerd active |
 | Host | 12th Gen Intel(R) Core(TM) i9-12900H, 15 GiB RAM |
 | OS / kernel | Ubuntu 24.04.5 LTS, 7.0.0-38-generic |
 | NVIDIA driver | 595.99.02 (open kernel modules) |
@@ -80,6 +107,11 @@ A fixed-seed 2048³ GEMM is run twice in each phase. Its output is hashed (SHA-2
 
 ## Results
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="charts/overview_change_dark.png">
+  <img alt="Change per test" src="charts/overview_change_light.png">
+</picture>
+
 ### GEMM micro-benchmarks
 
 | Test | Expect | Baseline | Unlocked | Change | Range | Sep. | Power B→U (W) | Perf/W | SM clock B→U (MHz) | Max °C B→U |
@@ -100,7 +132,10 @@ A fixed-seed 2048³ GEMM is run twice in each phase. Its output is hashed (SHA-2
 | gemm_fp32_8192 | control | 10.26 | 10.26 TFLOPS | **-0.0 %** | -1.3 % … +2.2 % | no | 103 → 104 | -0.2 % | 1,114 → 1,113 | 67 → 67 |
 | gemm_int8_8192 | control | 22.85 | 22.58 TOPS | **-1.2 %** | -2.6 % … +0.9 % | no | 104 → 103 | -0.9 % | 1,067 → 1,056 | 65 → 66 |
 
-![GEMM throughput](charts/gemm_throughput.png)
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="charts/gemm_throughput_dark.png">
+  <img alt="GEMM throughput" src="charts/gemm_throughput_light.png">
+</picture>
 
 ### Memory bandwidth
 
@@ -183,7 +218,26 @@ Test descriptions:
 | TFLOPS per watt | 0.327 | 0.484 |
 | Throttle reasons (share of samples) | sw_power_cap 99.8% | sw_power_cap 99.7% |
 
-![Sustained run](charts/sustained_bf16.png)
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="charts/sustained_bf16_dark.png">
+  <img alt="Sustained run" src="charts/sustained_bf16_light.png">
+</picture>
+
+## Reproducibility
+
+Additional complete runs of the same phase, compared with the runs used above (median per run):
+
+| Test | `20261026-100526_baseline` | `20261026-104640_unlocked` | `20261026-114448_unlocked_unlocked-first` | Spread of unlocked runs |
+|---|---:|---:|---:|---:|
+| BF16 GEMM 8192³ (FP32 acc.) | 33.48 | 50.23 | 50.52 | 0.6 % |
+| FP16 GEMM 8192³ (FP32 acc.) | 34.03 | 52.31 | 52.00 | 0.6 % |
+| TF32 GEMM 8192³ | 16.87 | 25.46 | 25.56 | 0.4 % |
+| Attention fwd+bwd, BF16 | 30.00 | 41.68 | 41.90 | 0.5 % |
+| LLM prompt processing (2048 tok) | 15,451.60 | 22,199.93 | 22,329.36 | 0.6 % |
+| LLM token generation (batch 1) | 148.16 | 149.72 | 149.72 | 0.0 % |
+| GPT-124M training, BF16 | 20,318.14 | 26,231.97 | 26,203.71 | 0.1 % |
+| ResNet-50 training, BF16 | 476.49 | 544.83 | 543.70 | 0.2 % |
+| Sustained BF16 GEMM (median of all windows) | 33.66 | 49.95 | 50.29 | 0.7 % |
 
 ## Limitations
 

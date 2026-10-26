@@ -1,0 +1,51 @@
+2026-10-26 11:29:11.517 | INFO    | Comparing baseline 20261026-100526_baseline with unlocked 20261026-104640_unlocked
+2026-10-26 11:29:11.517 | INFO    | gemm_fp16_2048                    29.68 ->      41.82 TFLOPS     +40.89 %  range +33.9..+47.7 %  significant
+2026-10-26 11:29:11.517 | INFO    | gemm_bf16_2048                    30.69 ->      44.06 TFLOPS     +43.57 %  range +35.1..+50.6 %  significant
+2026-10-26 11:29:11.517 | INFO    | gemm_tf32_2048                    15.24 ->      23.06 TFLOPS     +51.34 %  range +39.1..+53.6 %  significant
+2026-10-26 11:29:11.517 | INFO    | gemm_fp32_2048                     7.75 ->       7.59 TFLOPS      -2.04 %  range -6.6..+3.2 %  overlap
+2026-10-26 11:29:11.517 | INFO    | gemm_int8_2048                    23.85 ->      23.49 TOPS        -1.52 %  range -5.6..+2.9 %  overlap
+2026-10-26 11:29:11.518 | INFO    | gemm_fp16_4096                    32.60 ->      49.87 TFLOPS     +52.97 %  range +49.3..+54.5 %  significant
+2026-10-26 11:29:11.518 | INFO    | gemm_bf16_4096                    33.17 ->      52.04 TFLOPS     +56.89 %  range +49.8..+58.9 %  significant
+2026-10-26 11:29:11.518 | INFO    | gemm_tf32_4096                    16.25 ->      24.84 TFLOPS     +52.80 %  range +51.1..+56.2 %  significant
+2026-10-26 11:29:11.518 | INFO    | gemm_fp32_4096                     7.91 ->       7.90 TFLOPS      -0.18 %  range -1.5..+3.1 %  overlap
+2026-10-26 11:29:11.518 | INFO    | gemm_int8_4096                    23.46 ->      23.73 TOPS        +1.15 %  range -1.8..+2.9 %  overlap
+2026-10-26 11:29:11.518 | INFO    | gemm_fp16_8192                    34.03 ->      52.31 TFLOPS     +53.70 %  range +50.0..+54.6 %  significant
+2026-10-26 11:29:11.518 | INFO    | gemm_bf16_8192                    33.48 ->      50.23 TFLOPS     +50.01 %  range +47.1..+52.6 %  significant
+2026-10-26 11:29:11.518 | INFO    | gemm_tf32_8192                    16.87 ->      25.46 TFLOPS     +50.87 %  range +48.7..+52.9 %  significant
+2026-10-26 11:29:11.518 | INFO    | gemm_fp32_8192                    10.26 ->      10.26 TFLOPS      -0.00 %  range -1.3..+2.2 %  overlap
+2026-10-26 11:29:11.518 | INFO    | gemm_int8_8192                    22.85 ->      22.58 TOPS        -1.19 %  range -2.6..+0.9 %  overlap
+2026-10-26 11:29:11.518 | INFO    | membw_copy_1gib                  349.57 ->     349.46 GB/s        -0.03 %  range -0.1..-0.0 %  significant
+2026-10-26 11:29:11.518 | INFO    | sdpa_fwd_fp16                     31.61 ->      44.46 TFLOPS     +40.66 %  range +37.9..+42.1 %  significant
+2026-10-26 11:29:11.518 | INFO    | sdpa_fwd_bf16                     32.43 ->      45.89 TFLOPS     +41.48 %  range +36.3..+44.7 %  significant
+2026-10-26 11:29:11.518 | INFO    | sdpa_fwdbwd_bf16                  30.00 ->      41.68 TFLOPS     +38.93 %  range +35.5..+43.7 %  significant
+2026-10-26 11:29:11.518 | INFO    | conv3x3_fp16                      33.65 ->      50.64 TFLOPS     +50.48 %  range +46.1..+52.1 %  significant
+2026-10-26 11:29:11.518 | INFO    | conv3x3_bf16                      34.98 ->      52.45 TFLOPS     +49.96 %  range +47.0..+53.4 %  significant
+2026-10-26 11:29:11.518 | INFO    | llm_prefill_bf16_p512          13990.88 ->   18910.33 tokens/s   +35.16 %  range +33.8..+37.5 %  significant
+2026-10-26 11:29:11.518 | INFO    | llm_prefill_bf16_p2048         15451.60 ->   22199.93 tokens/s   +43.67 %  range +40.4..+45.5 %  significant
+2026-10-26 11:29:11.518 | INFO    | llm_decode_bf16_b1               148.16 ->     149.72 tokens/s    +1.05 %  range +1.0..+1.1 %  significant
+2026-10-26 11:29:11.518 | INFO    | llm_decode_bf16_b16             1319.47 ->    1524.76 tokens/s   +15.56 %  range +14.4..+16.4 %  significant
+2026-10-26 11:29:11.518 | INFO    | train_gpt124m_bf16             20318.14 ->   26231.97 tokens/s   +29.11 %  range +26.5..+30.3 %  significant
+2026-10-26 11:29:11.518 | INFO    | train_gpt124m_fp16             20077.78 ->   25312.60 tokens/s   +26.07 %  range +23.7..+27.4 %  significant
+2026-10-26 11:29:11.518 | INFO    | resnet50_train_bf16              476.49 ->     544.83 images/s   +14.34 %  range +12.3..+16.6 %  significant
+2026-10-26 11:29:11.518 | INFO    | resnet50_infer_fp16             1553.12 ->    1814.97 images/s   +16.86 %  range +14.7..+17.8 %  significant
+2026-10-26 11:29:11.518 | INFO    | sustained_gemm_bf16_8192          33.66 ->      49.95 TFLOPS     +48.39 %  range +45.3..+52.2 %  significant
+2026-10-26 11:29:11.518 | INFO    | CHECK Baseline boot is stock                        pass  state=stock, cmdline targets=None
+2026-10-26 11:29:11.518 | INFO    | CHECK Unlocked boot reports 'gpu_unlock: unlocked'  pass  state=unlocked, log lines=17
+2026-10-26 11:29:11.518 | INFO    | CHECK Same NVIDIA driver                            pass  595.99.02 / 595.99.02
+2026-10-26 11:29:11.518 | INFO    | CHECK Same VBIOS                                    pass  94.04.7C.00.10 / 94.04.7C.00.10
+2026-10-26 11:29:11.518 | INFO    | CHECK Same Max power limit                          pass  150.00 W / 150.00 W
+2026-10-26 11:29:11.519 | INFO    | CHECK Same PCI device                               pass  0x24E010DE / 0x24E010DE
+2026-10-26 11:29:11.519 | INFO    | CHECK Same kernel                                   pass  7.0.0-38-generic / 7.0.0-38-generic
+2026-10-26 11:29:11.519 | INFO    | CHECK Same platform profile                         pass  performance / performance
+2026-10-26 11:29:11.519 | INFO    | CHECK Same AC power                                 pass  True / True
+2026-10-26 11:29:11.519 | INFO    | CHECK Same Runtime D3 setting                       pass  Disabled / Disabled
+2026-10-26 11:29:11.519 | INFO    | CHECK Same PyTorch / CUDA / cuDNN                   pass  2.14.1+cu130/13.0/92400 vs 2.14.1+cu130/13.0/92400
+2026-10-26 11:29:11.519 | INFO    | CHECK Same suite version                            pass  1.0.0 / 1.0.0
+2026-10-26 11:29:11.519 | INFO    | CHECK No run was forced past preflight              pass  - / -
+2026-10-26 11:29:11.519 | INFO    | CHECK Control tests unchanged (±5 %)                pass  gemm_fp32_2048 -2.0%, gemm_int8_2048 -1.5%, gemm_fp32_4096 -0.2%, gemm_int8_4096 +1.1%, gemm_fp32_8192 -0.0%, gemm_int8_8192 -1.2%, membw_copy_1gib -0.0%
+2026-10-26 11:29:11.519 | INFO    | CHECK Measurement noise acceptable (max CV < 5 %)   pass  median CV 0.97 %, worst 2.89 %
+2026-10-26 11:29:11.519 | INFO    | CORRECTNESS correct_gemm_bf16  identical=True err_b=0.002106635726482923 err_u=0.002106635726482923
+2026-10-26 11:29:11.519 | INFO    | CORRECTNESS correct_gemm_fp16  identical=True err_b=0.0002662700997264953 err_u=0.0002662700997264953
+2026-10-26 11:29:11.519 | INFO    | CORRECTNESS correct_gemm_fp32  identical=True err_b=2.2824643763939263e-06 err_u=2.2824643763939263e-06
+2026-10-26 11:29:11.519 | INFO    | CORRECTNESS correct_gemm_tf32  identical=True err_b=0.00031986122560342673 err_u=0.00031986122560342673
+2026-10-26 11:29:15.327 | INFO    | Report written to /tmp/ck/reports/20261026-112911_20261026-100526_baseline_vs_20261026-104640_unlocked/report.md

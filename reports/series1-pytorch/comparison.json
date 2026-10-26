@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-26T11:08:07.371+01:00",
+  "generated": "2026-10-26T11:29:15.325+00:00",
   "suite_version": "1.0.0",
   "baseline": "20261026-100526_baseline",
   "unlocked": "20261026-104640_unlocked",
@@ -624,7 +624,8 @@
       "throttle_u": {
         "sw_power_cap": 100.0
       },
-      "ppw_change_pct": 53.500080715735244
+      "ppw_change_pct": 53.500080715735244,
+      "energy_change_pct": -34.85345445180015
     },
     {
       "test_id": "gemm_bf16_8192",
@@ -668,7 +669,8 @@
       "throttle_u": {
         "sw_power_cap": 100.0
       },
-      "ppw_change_pct": 49.343604449518864
+      "ppw_change_pct": 49.343604449518864,
+      "energy_change_pct": -33.04031975885381
     },
     {
       "test_id": "gemm_tf32_8192",
@@ -712,7 +714,8 @@
       "throttle_u": {
         "sw_power_cap": 100.0
       },
-      "ppw_change_pct": 51.80847142218374
+      "ppw_change_pct": 51.80847142218374,
+      "energy_change_pct": -34.127523277737836
     },
     {
       "test_id": "gemm_fp32_8192",
@@ -972,7 +975,8 @@
       "throttle_u": {
         "sw_power_cap": 100.0
       },
-      "ppw_change_pct": 40.82678845782133
+      "ppw_change_pct": 40.82678845782133,
+      "energy_change_pct": -28.99078286518566
     },
     {
       "test_id": "conv3x3_fp16",
@@ -1148,7 +1152,8 @@
       "throttle_u": {
         "sw_power_cap": 100.0
       },
-      "ppw_change_pct": 43.371325225860915
+      "ppw_change_pct": 43.371325225860915,
+      "energy_change_pct": -30.251045777484187
     },
     {
       "test_id": "llm_decode_bf16_b1",
@@ -1280,7 +1285,8 @@
       "throttle_u": {
         "sw_power_cap": 100.0
       },
-      "ppw_change_pct": 28.863656763536085
+      "ppw_change_pct": 28.863656763536085,
+      "energy_change_pct": -22.39860135003051
     },
     {
       "test_id": "train_gpt124m_fp16",
@@ -1368,7 +1374,8 @@
       "throttle_u": {
         "sw_power_cap": 100.0
       },
-      "ppw_change_pct": 14.78485184804117
+      "ppw_change_pct": 14.78485184804117,
+      "energy_change_pct": -12.880490421866996
     },
     {
       "test_id": "resnet50_infer_fp16",
@@ -1456,7 +1463,8 @@
       "throttle_u": {
         "sw_power_cap": 99.7
       },
-      "ppw_change_pct": 48.329720265043164
+      "ppw_change_pct": 48.329720265043164,
+      "energy_change_pct": -32.58262752648973
     }
   ]
 }

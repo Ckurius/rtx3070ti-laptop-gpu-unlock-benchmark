@@ -1,12 +1,50 @@
 # RTX 3070 Ti Laptop GPU – gpu-unlock benchmark
 
 A reproducible before/after benchmark of [Zagitta/gpu-unlock](https://github.com/Zagitta/gpu-unlock) on an
-NVIDIA GeForce RTX 3070 Ti **Laptop** GPU (GA104, `10de:24a0`). gpu-unlock is a Linux kernel module that removes the
+NVIDIA GeForce RTX 3070 Ti **Laptop** GPU (GA104, `10de:24e0`) in an HP Omen 16-k0620ng. gpu-unlock is a Linux kernel module that removes the
 half-rate limit on FP16/BF16/TF32 tensor-core math with FP32 accumulation on GeForce Ampere cards. At the time of
 writing, no laptop GPU had been reported in its compatibility list.
 
 The suite runs an identical test list twice, once on the stock card (**baseline**) and once with gpu_unlock active
 (**unlocked**). It then produces a report with validity checks, all raw logs and SHA-256 checksums.
+
+## Results at a glance
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="reports/series1-pytorch/charts/headline_dark.png">
+  <img alt="Throughput gain with gpu-unlock per workload" src="reports/series1-pytorch/charts/headline_light.png">
+</picture>
+
+| Workload | Stock | Unlocked | Change |
+|---|---:|---:|---:|
+| BF16 matrix multiply 8192³ (FP32 acc.) | 33.5 TFLOPS | 50.2 TFLOPS | **+50 %** |
+| FP16 matrix multiply 8192³ (FP32 acc.) | 34.0 TFLOPS | 52.3 TFLOPS | **+54 %** |
+| TF32 matrix multiply 8192³ | 16.9 TFLOPS | 25.5 TFLOPS | **+51 %** |
+| LLM prompt processing, 2048 tokens (BF16) | 15,452 tok/s | 22,200 tok/s | **+44 %** |
+| GPT-124M training (BF16) | 20,318 tok/s | 26,232 tok/s | **+29 %** |
+| LLM token generation, batch 1 | 148 tok/s | 150 tok/s | +1 % |
+
+### Same power, more work: efficiency
+
+The laptop GPU sits at its power cap (≈ 105 W enforced) under tensor load in both phases. gpu-unlock does not
+raise that cap. The card draws the same ~103 W and runs at a **lower** SM clock (1,459 → 1,099 MHz in the sustained
+test), yet finishes **48 % more work**, because each tensor-core instruction now completes at the full rate.
+
+- **+48 % work per watt** in the 3-minute sustained BF16 load, **−33 % energy** per unit of work
+- **−30 % energy per token** for LLM prompt processing: 1.85 Wh → 1.29 Wh per million prompt tokens
+- Less heat for the same job, and more work per battery charge
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="reports/series1-pytorch/charts/efficiency_dark.png">
+  <img alt="Throughput, power and clock change with gpu-unlock" src="reports/series1-pytorch/charts/efficiency_light.png">
+</picture>
+
+**Trustworthy comparison.** Every validity check passed: same driver, kernel, software and power cap. Control
+tests (FP32, INT8, memory bandwidth) stayed unchanged within ±2 %. GEMM outputs are bit-identical in both phases,
+and a repeat run of the unlocked phase reproduced the results within 0.6 %.
+
+**Full report** with every test, power/thermal data and raw logs: [series 1 – PyTorch](reports/series1-pytorch/report.md)  
+Series 2 (llama.cpp with GGUF models: BF16, F16, Q8_0, Q4_K_M) is in progress.
 
 ## What is measured
 
@@ -42,7 +80,7 @@ Control tests, which must not change, confirm that the two boots differ only in 
 ./run.sh baseline         # stock card, ~30-40 min
 ./run.sh install-unlock   # installs gpu-unlock + kernel parameter -> reboot
 ./run.sh unlocked         # unlocked card, ~30-40 min
-./run.sh compare          # report from the newest baseline + unlocked run
+./run.sh compare --system "HP Omen 16-k0620ng"   # report from the newest baseline + unlocked run
 ./run.sh remove-unlock    # back to stock -> reboot
 ```
 
@@ -102,22 +140,3 @@ of every test is kept in `raw/`.
 
 gpu-unlock is experimental third-party software that writes undocumented GPU registers. This repository only
 measures its effect. Use at your own risk.
-
-## Results
-
-**Series 1 – HP Omen 16 (RTX 3070 Ti Laptop, 10de:24e0), both phases at the same ~103 W power cap:**
-
-| Workload | Stock | Unlocked | Change |
-|---|---:|---:|---:|
-| BF16 GEMM 8192³ (FP32 acc.) | 33.5 TFLOPS | 50.2 TFLOPS | **+50 %** |
-| FP16 GEMM 8192³ (FP32 acc.) | 34.0 TFLOPS | 52.3 TFLOPS | **+54 %** |
-| TF32 GEMM 8192³ | 16.9 TFLOPS | 25.5 TFLOPS | **+51 %** |
-| LLM prompt processing, 2048 tokens (BF16) | 15,452 tok/s | 22,200 tok/s | **+44 %** |
-| GPT-124M training (BF16) | 20,318 tok/s | 26,232 tok/s | **+29 %** |
-| LLM token generation, batch 1 | 148 tok/s | 150 tok/s | +1 % |
-
-All validity checks passed. Controls (FP32, INT8, memory bandwidth) unchanged within ±2 %, outputs bit-identical.
-Same power draw, lower clocks, ~48 % more work per watt.
-Full report: [series 1](reports/20261026-110806_20261026-100526_baseline_vs_20261026-104640_unlocked/report.md)
-
-- Series 2 (llama.cpp / GGUF): coming soon
