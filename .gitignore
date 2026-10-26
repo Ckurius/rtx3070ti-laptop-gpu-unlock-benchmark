@@ -1,0 +1,10 @@
+.venv/
+__pycache__/
+*.pyc
+.venv-convert/
+third_party/
+models/
+logs/
+results/*_smoke/
+results/llamacpp/*_smoke/
+*.tar.gz

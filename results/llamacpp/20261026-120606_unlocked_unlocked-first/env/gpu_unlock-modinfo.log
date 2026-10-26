@@ -1,0 +1,35 @@
+$ modinfo gpu_unlock 2>/dev/null
+# exit=0
+filename:       /lib/modules/7.0.0-38-generic/updates/dkms/gpu_unlock.ko.zst
+version:        1.0.0
+description:    Ampere pre-driver BF16 unlock
+license:        GPL
+firmware:       gpu-unlock/610.43.03/gsp_boot_desc_ga102.bin
+firmware:       gpu-unlock/610.43.03/gsp_boot_ga102.bin
+firmware:       gpu-unlock/610.43.03/gsp_ga10x.bin
+firmware:       gpu-unlock/610.43.03/v67-ga102-610.43.03.bin
+firmware:       gpu-unlock/610.43.03/booter_load_ga102.bin
+srcversion:     8C3A0B337AE00088B146BF2
+depends:        
+name:           gpu_unlock
+retpoline:      Y
+vermagic:       7.0.0-38-generic SMP preempt mod_unload modversions 
+sig_id:         PKCS#7
+signer:         kiubu evdi DKMS signing
+sig_key:        3E:2A:9C:9F:C0:3A:CD:C7:E1:D2:DD:94:8C:6F:92:C7:8A:35:15:DC
+sig_hashalgo:   sha512
+signature:      93:A0:3C:C7:03:28:E3:D7:39:45:75:F3:70:90:10:D4:8C:44:39:63:
+		01:20:B1:1F:0C:85:7A:39:8E:F4:A9:B0:D5:2D:67:EE:D7:56:FD:E3:
+		99:81:01:E5:EB:F4:89:72:F9:A9:6D:0B:90:BB:DC:D0:ED:6B:F9:26:
+		E6:DF:15:48:15:B1:09:8C:DE:30:15:40:83:BC:0C:7A:43:39:14:FC:
+		AD:79:0B:D1:82:DD:81:37:FF:2D:F0:F3:9C:E0:6C:B7:83:87:A0:AC:
+		CF:49:42:96:8C:48:37:A0:B3:ED:B9:7B:DC:34:95:1D:75:11:A3:DE:
+		18:01:57:6F:36:0C:F2:27:99:AF:36:04:87:79:CA:F8:6A:61:8F:84:
+		F6:5E:66:80:8A:29:C5:B8:25:43:7F:09:1F:5F:48:0F:2B:A1:CE:E9:
+		5B:B0:4D:D9:B0:D6:FA:0A:FA:FA:B2:42:70:17:2D:E3:40:EE:ED:BC:
+		65:C8:46:FF:05:BC:73:7B:A2:C5:98:89:30:68:72:15:54:AD:62:F1:
+		AD:2D:4D:3E:06:C6:66:7B:22:73:27:36:9A:52:42:B0:A4:E5:70:5F:
+		1B:87:CA:3A:50:17:3A:FC:41:A9:CB:CF:86:11:F2:F2:E8:78:C9:CD:
+		90:FB:E3:9F:D7:E9:ED:8A:24:35:67:2B:0E:2F:C5:78
+parm:           targets:"all" or comma-separated PCI addresses of GA102/GA103/GA104/GA106 cards to unlock (charp)
+parm:           resume:Unlock the cards again after resume from suspend, which powers them off (default: on) (bool)

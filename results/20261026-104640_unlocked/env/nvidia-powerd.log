@@ -1,0 +1,14 @@
+$ systemctl is-active nvidia-powerd; journalctl -u nvidia-powerd -b --no-pager 2>/dev/null | tail -20
+# exit=0
+active
+Oct 26 10:43:49 Kiubu systemd[1]: Started nvidia-powerd.service - nvidia-powerd service.
+Oct 26 10:43:49 Kiubu nvidia-powerd[1810]: nvidia-powerd version:2.0 (build 1)
+Oct 26 10:43:49 Kiubu nvidia-powerd[1810]: ERROR! DC power limits table is not supported
+Oct 26 10:43:49 Kiubu nvidia-powerd[1810]: DBus Connection is established
+Oct 26 10:43:49 Kiubu nvidia-powerd[1810]: ERROR! Failed to get SysPwrLimitGetInfo!!
+Oct 26 10:43:49 Kiubu nvidia-powerd[1810]: ERROR! Client (presumably SBIOS) has requested to disable Dynamic Boost DC controller
+Oct 26 10:43:49 Kiubu nvidia-powerd[1810]: CRITICAL! Failed to get SysPwrLimitGetInfo
+Oct 26 10:43:49 Kiubu nvidia-powerd[1810]: ERROR! JPAC is not created/already destroyed, ignoring request.
+Oct 26 10:43:49 Kiubu nvidia-powerd[1810]: ERROR! JPAC is not created/already destroyed, ignoring request.
+Oct 26 10:43:51 Kiubu nvidia-powerd[1810]: ERROR! JPAC is not created/already destroyed, ignoring request.
+Oct 26 10:43:59 Kiubu nvidia-powerd[1810]: ERROR! JPAC is not created/already destroyed, ignoring request.

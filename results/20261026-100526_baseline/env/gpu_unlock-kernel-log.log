@@ -1,0 +1,3 @@
+$ journalctl -k -b --no-pager -o short-iso 2>/dev/null | grep -i gpu_unlock || dmesg 2>/dev/null | grep -i gpu_unlock
+# exit=1
+

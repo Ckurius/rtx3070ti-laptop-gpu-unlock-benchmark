@@ -1,0 +1,8 @@
+$ lsmod | grep -E '^(gpu_unlock|nvidia|nouveau)'
+# exit=0
+nvidia_uvm           2056192  0
+nvidia_drm            143360  3
+nvidia_modeset       1794048  3 nvidia_drm
+nvidia              15106048  45 nvidia_uvm,nvidia_modeset
+nvidia_wmi_ec_backlight    12288  0
+gpu_unlock             61440  0

@@ -1,0 +1,133 @@
+{
+  "generated": "2026-10-26T10:27:21.285+01:00",
+  "files": {
+    "env.json": {
+      "bytes": 3164,
+      "sha256": "2f1e432e4cbde86f9692dceb60f383d280730404c17335e699c324af9b69d282"
+    },
+    "results.csv": {
+      "bytes": 8555,
+      "sha256": "5881b63b7288fec744443bd79b3047dfd4b7b10099677008cc6d58cf6084f5b9"
+    },
+    "results.jsonl": {
+      "bytes": 45191,
+      "sha256": "07e6d8b771dc4aeb0d25ab8d810c6c446c98cfcc8f4f69b2786ab5c45dc4edf8"
+    },
+    "run.log": {
+      "bytes": 33545,
+      "sha256": "cabe962ff32420f1a4916a558013a8c44f12e30d52e9184dc38b85f54cf08884"
+    },
+    "summary.md": {
+      "bytes": 2983,
+      "sha256": "ca4a9a5a3d418e0ba32b67c0d6e6b79803bee6194853fab44be6ca9558e131a8"
+    },
+    "sustained_sustained_gemm_bf16_8192.csv": {
+      "bytes": 2736,
+      "sha256": "16ea0113049422b605870a3a37cc3efe08a9c9b400a35a74445e902eb598b9a2"
+    },
+    "telemetry.csv": {
+      "bytes": 1471903,
+      "sha256": "a27834fa0c43c50d208281e91fe1eb131458b4d2bea1006566883b271efc8196"
+    },
+    "env/ac-adapter.log": {
+      "bytes": 353,
+      "sha256": "cd99103dce328f0fae930839da0da67f55fa31de5a9ceb4a5635ef2fe06b3e0c"
+    },
+    "env/battery.log": {
+      "bytes": 175,
+      "sha256": "f151011004aba6a2a7263cbeac2724f290f7c06c4859c324be4389a0e3440fc4"
+    },
+    "env/cmdline.log": {
+      "bytes": 147,
+      "sha256": "4207c4a4478b0ec074cd5c0f2656d35e71ba4cc462a5960ddd51899e3a022b42"
+    },
+    "env/dkms-status.log": {
+      "bytes": 621,
+      "sha256": "44581538a6306c5b80d1e2d8533310e2de31e705b763efbdbef411232dfbbf94"
+    },
+    "env/gpu-compute-apps.log": {
+      "bytes": 126,
+      "sha256": "84d1bceb38decdf61f0cded833d40ff5025f3352a58531444633321c856f2863"
+    },
+    "env/gpu_unlock-kernel-log.log": {
+      "bytes": 128,
+      "sha256": "f7fc3d7a90758bcbf6ec5a6aff3dd9d67fb0589bae93ea9853dfddab2056c096"
+    },
+    "env/gpu_unlock-modinfo.log": {
+      "bytes": 43,
+      "sha256": "726b7649022b445a514be11f41d60a3253e79ea29f024a4cb1880f978fbb4298"
+    },
+    "env/lscpu.log": {
+      "bytes": 3547,
+      "sha256": "a5b87ff82767fd40cda11f783c052008507a79a30f8008367b1bf6262081e0f4"
+    },
+    "env/lsmod-gpu.log": {
+      "bytes": 260,
+      "sha256": "50d7d4af10be0d1abb2b58c3aa6748ac8098f9e402193f1ed5ced6a4e45a6580"
+    },
+    "env/lspci-nvidia-verbose.log": {
+      "bytes": 1691,
+      "sha256": "34c0eb959b785ff1e0767fc2d00ace6a458eb127878c92fefc6ee31e97d46588"
+    },
+    "env/lspci-nvidia.log": {
+      "bytes": 273,
+      "sha256": "43fc95a0fe242c04811e4ec225ea41d889c87c97a01ae8410119f9bf64660939"
+    },
+    "env/meminfo.log": {
+      "bytes": 211,
+      "sha256": "458b67e1a9826c7d42c02488d05ae80460735f990c7298972e70fb14572c2b0c"
+    },
+    "env/nvidia-driver-params.log": {
+      "bytes": 1115,
+      "sha256": "db394517d40d7fbbc3e45b32801b86a60c4eb4b75fbb5f999165d08d5a1c487c"
+    },
+    "env/nvidia-driver-version.log": {
+      "bytes": 253,
+      "sha256": "b6ae2cd1db499130906d58b0d40f750d047a3da9e356210ca1e63ebf1e48d998"
+    },
+    "env/nvidia-gpu-power.log": {
+      "bytes": 394,
+      "sha256": "59c6907e9c6b41fe5c782f9e945162f9da006cb85b0634f20d5951432ce6b1c4"
+    },
+    "env/nvidia-modinfo.log": {
+      "bytes": 873,
+      "sha256": "8bdfc7483b80f747e58c278dc72de91c7b227571114dc0f3d3608e39d083fede"
+    },
+    "env/nvidia-powerd.log": {
+      "bytes": 1605,
+      "sha256": "999c13aa0b6507c4b1983ec6e0cc28c4158523de32191182b436d8a9f63ff2b6"
+    },
+    "env/nvidia-smi-power.log": {
+      "bytes": 5546,
+      "sha256": "7965b92cf92bc9e6f9f6e4a7e03ced16a6e3c3b2707d51fc43d16c016a7ad39a"
+    },
+    "env/nvidia-smi-q.log": {
+      "bytes": 13843,
+      "sha256": "76b41cf2f98e96f495ba066a2512ba9598a8b582bf1bf504b811f04a0bf37323"
+    },
+    "env/nvidia-smi-query.log": {
+      "bytes": 401,
+      "sha256": "ca8c05e24d5d214321a5491c6387551579e6112ddddbb4ac7f87a3a53737d386"
+    },
+    "env/os-release.log": {
+      "bytes": 431,
+      "sha256": "1239726d87ea9a5f97c17c5b68c10ba5331369b076007d7162b5c89bdee7f361"
+    },
+    "env/platform-profile.log": {
+      "bytes": 139,
+      "sha256": "a0ffdf21a52d7e4696512c5d984482b4446211505c31e20158cb685ac6df1148"
+    },
+    "env/power-profiles-daemon.log": {
+      "bytes": 56,
+      "sha256": "483fdfa3a90757727a39ddbdf667f27f217704f691054097593afaad67e39e61"
+    },
+    "env/secure-boot.log": {
+      "bytes": 62,
+      "sha256": "11672b25a9317efd55689830bdc6d270ea08850dc2aae5eb63a26921c1390063"
+    },
+    "env/uname.log": {
+      "bytes": 145,
+      "sha256": "835729849c948d0b18bc0dde7a41a37df3cec791a63ac077f541e04261a80867"
+    }
+  }
+}

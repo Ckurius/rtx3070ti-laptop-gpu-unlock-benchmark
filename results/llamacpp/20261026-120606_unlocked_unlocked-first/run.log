@@ -1,0 +1,83 @@
+2026-10-26 12:06:06.688 | INFO    | === llama.cpp series v1.0.0 | phase=unlocked ===
+2026-10-26 12:06:06.688 | INFO    | Run directory: /home/kiubu/Schreibtisch/Projekte/3070ti-unlock/results/llamacpp/20261026-120606_unlocked_unlocked-first
+2026-10-26 12:06:06.688 | INFO    | Arguments: {"phase": "unlocked", "llama_bench": "/home/kiubu/Schreibtisch/Projekte/3070ti-unlock/third_party/llama.cpp/build/bin/llama-bench", "models_dir": "/home/kiubu/Schreibtisch/Projekte/3070ti-unlock/models", "model_slug": "qwen2.5-3b-instruct", "quants": "BF16 F16 Q8_0 Q4_K_M", "prompts": "512,2048", "gen": 128, "reps": 7, "cooldown_temp": 55.0, "cooldown_min": 10.0, "cooldown_max": 120.0, "idle_sec": 15.0, "timeout": 900.0, "only": null, "out_root": "/home/kiubu/Schreibtisch/Projekte/3070ti-unlock/results/llamacpp", "gpu_unlock_dir": "/home/kiubu/gpu-unlock", "label": "unlocked-first", "smoke": false, "force": false}
+2026-10-26 12:06:08.973 | INFO    | GPU NVIDIA GeForce RTX 3070 Ti Laptop GPU | VBIOS 94.04.7C.00.10 | driver 595.99.02 | power max 150.00 W | unlock state unlocked
+2026-10-26 12:06:08.973 | INFO    | llama.cpp fd8f8451a 2026-10-26 tests : refactor test-llama-archs to not link internal libllama symbols (#30880) | Build cuda_12.6.r12.6/compiler.35059454_0
+2026-10-26 12:06:08.973 | INFO    | Model qwen2.5-3b-instruct-BF16.gguf: 6.18 GB, sha256 aebb07ab86e2481d…
+2026-10-26 12:06:08.973 | INFO    | Model qwen2.5-3b-instruct-F16.gguf: 6.18 GB, sha256 78d99793c95067a1…
+2026-10-26 12:06:08.973 | INFO    | Model qwen2.5-3b-instruct-Q4_K_M.gguf: 1.93 GB, sha256 51603f5155ad0a3f…
+2026-10-26 12:06:08.973 | INFO    | Model qwen2.5-3b-instruct-Q8_0.gguf: 3.29 GB, sha256 b0a3c14129d40cde…
+2026-10-26 12:06:24.006 | INFO    | Running 24 llama-bench tests (7 repetitions each)
+2026-10-26 12:06:24.006 | INFO    | [1/24] BF16_pp512_fa-off
+2026-10-26 12:06:24.006 | DEBUG   | BF16_pp512_fa-off: /home/kiubu/Schreibtisch/Projekte/3070ti-unlock/third_party/llama.cpp/build/bin/llama-bench -m /home/kiubu/Schreibtisch/Projekte/3070ti-unlock/models/qwen2.5-3b-instruct-BF16.gguf -p 512 -n 0 -r 7 -ngl 99 -fa off -o json
+2026-10-26 12:06:39.271 | INFO    | BF16_pp512_fa-off              4612.4 tokens/s  sd  22.1  n=7 | 37.6 W | 1122 MHz | 56 °C max | gpu_idle 7.7%, sw_power_cap 15.4%
+2026-10-26 12:06:39.271 | INFO    | [2/24] BF16_pp2048_fa-off
+2026-10-26 12:06:39.271 | DEBUG   | BF16_pp2048_fa-off: /home/kiubu/Schreibtisch/Projekte/3070ti-unlock/third_party/llama.cpp/build/bin/llama-bench -m /home/kiubu/Schreibtisch/Projekte/3070ti-unlock/models/qwen2.5-3b-instruct-BF16.gguf -p 2048 -n 0 -r 7 -ngl 99 -fa off -o json
+2026-10-26 12:06:55.728 | INFO    | BF16_pp2048_fa-off             3839.0 tokens/s  sd  24.3  n=7 | 65.3 W | 1134 MHz | 56 °C max | gpu_idle 10.8%, sw_power_cap 66.2%
+2026-10-26 12:06:55.728 | INFO    | [3/24] BF16_tg128_fa-off
+2026-10-26 12:06:55.728 | DEBUG   | BF16_tg128_fa-off: /home/kiubu/Schreibtisch/Projekte/3070ti-unlock/third_party/llama.cpp/build/bin/llama-bench -m /home/kiubu/Schreibtisch/Projekte/3070ti-unlock/models/qwen2.5-3b-instruct-BF16.gguf -p 0 -n 128 -r 7 -ngl 99 -fa off -o json
+2026-10-26 12:07:24.422 | INFO    | BF16_tg128_fa-off                52.4 tokens/s  sd   0.2  n=7 | 91.0 W | 1500 MHz | 59 °C max | gpu_idle 1.6%, sw_power_cap 90.4%
+2026-10-26 12:07:24.422 | INFO    | [4/24] BF16_pp512_fa-on
+2026-10-26 12:07:24.422 | DEBUG   | BF16_pp512_fa-on: /home/kiubu/Schreibtisch/Projekte/3070ti-unlock/third_party/llama.cpp/build/bin/llama-bench -m /home/kiubu/Schreibtisch/Projekte/3070ti-unlock/models/qwen2.5-3b-instruct-BF16.gguf -p 512 -n 0 -r 7 -ngl 99 -fa on -o json
+2026-10-26 12:07:36.856 | INFO    | BF16_pp512_fa-on               5294.6 tokens/s  sd  26.1  n=7 | 37.4 W | 1188 MHz | 56 °C max | gpu_idle 25.0%, sw_power_cap 33.3%
+2026-10-26 12:07:36.856 | INFO    | [5/24] BF16_pp2048_fa-on
+2026-10-26 12:07:36.856 | DEBUG   | BF16_pp2048_fa-on: /home/kiubu/Schreibtisch/Projekte/3070ti-unlock/third_party/llama.cpp/build/bin/llama-bench -m /home/kiubu/Schreibtisch/Projekte/3070ti-unlock/models/qwen2.5-3b-instruct-BF16.gguf -p 2048 -n 0 -r 7 -ngl 99 -fa on -o json
+2026-10-26 12:07:51.775 | INFO    | BF16_pp2048_fa-on              4983.1 tokens/s  sd  96.2  n=7 | 63.5 W | 1123 MHz | 55 °C max | gpu_idle 4.1%, sw_power_cap 65.3%
+2026-10-26 12:07:51.775 | INFO    | [6/24] BF16_tg128_fa-on
+2026-10-26 12:07:51.775 | DEBUG   | BF16_tg128_fa-on: /home/kiubu/Schreibtisch/Projekte/3070ti-unlock/third_party/llama.cpp/build/bin/llama-bench -m /home/kiubu/Schreibtisch/Projekte/3070ti-unlock/models/qwen2.5-3b-instruct-BF16.gguf -p 0 -n 128 -r 7 -ngl 99 -fa on -o json
+2026-10-26 12:08:20.231 | INFO    | BF16_tg128_fa-on                 53.3 tokens/s  sd   0.1  n=7 | 93.0 W | 1530 MHz | 58 °C max | gpu_idle 1.1%, sw_power_cap 88.0%
+2026-10-26 12:08:20.231 | INFO    | [7/24] F16_pp512_fa-off
+2026-10-26 12:08:20.231 | DEBUG   | F16_pp512_fa-off: /home/kiubu/Schreibtisch/Projekte/3070ti-unlock/third_party/llama.cpp/build/bin/llama-bench -m /home/kiubu/Schreibtisch/Projekte/3070ti-unlock/models/qwen2.5-3b-instruct-F16.gguf -p 512 -n 0 -r 7 -ngl 99 -fa off -o json
+2026-10-26 12:08:35.680 | INFO    | F16_pp512_fa-off               4719.3 tokens/s  sd  33.3  n=7 | 33.5 W | 1135 MHz | 55 °C max | gpu_idle 5.6%, sw_power_cap 11.1%
+2026-10-26 12:08:35.681 | INFO    | [8/24] F16_pp2048_fa-off
+2026-10-26 12:08:35.681 | DEBUG   | F16_pp2048_fa-off: /home/kiubu/Schreibtisch/Projekte/3070ti-unlock/third_party/llama.cpp/build/bin/llama-bench -m /home/kiubu/Schreibtisch/Projekte/3070ti-unlock/models/qwen2.5-3b-instruct-F16.gguf -p 2048 -n 0 -r 7 -ngl 99 -fa off -o json
+2026-10-26 12:08:53.196 | INFO    | F16_pp2048_fa-off              3647.6 tokens/s  sd  47.5  n=7 | 63.0 W | 1142 MHz | 55 °C max | gpu_idle 12.0%, sw_power_cap 61.3%
+2026-10-26 12:08:53.196 | INFO    | [9/24] F16_tg128_fa-off
+2026-10-26 12:08:53.196 | DEBUG   | F16_tg128_fa-off: /home/kiubu/Schreibtisch/Projekte/3070ti-unlock/third_party/llama.cpp/build/bin/llama-bench -m /home/kiubu/Schreibtisch/Projekte/3070ti-unlock/models/qwen2.5-3b-instruct-F16.gguf -p 0 -n 128 -r 7 -ngl 99 -fa off -o json
+2026-10-26 12:09:21.891 | INFO    | F16_tg128_fa-off                 52.5 tokens/s  sd   0.1  n=7 | 92.2 W | 1496 MHz | 59 °C max | gpu_idle 2.2%, sw_power_cap 89.8%
+2026-10-26 12:09:21.891 | INFO    | [10/24] F16_pp512_fa-on
+2026-10-26 12:09:21.891 | DEBUG   | F16_pp512_fa-on: /home/kiubu/Schreibtisch/Projekte/3070ti-unlock/third_party/llama.cpp/build/bin/llama-bench -m /home/kiubu/Schreibtisch/Projekte/3070ti-unlock/models/qwen2.5-3b-instruct-F16.gguf -p 512 -n 0 -r 7 -ngl 99 -fa on -o json
+2026-10-26 12:09:34.543 | INFO    | F16_pp512_fa-on                5432.1 tokens/s  sd 161.9  n=7 | 42.4 W | 1239 MHz | 56 °C max | gpu_idle 11.1%, sw_power_cap 33.3%
+2026-10-26 12:09:34.543 | INFO    | [11/24] F16_pp2048_fa-on
+2026-10-26 12:09:34.543 | DEBUG   | F16_pp2048_fa-on: /home/kiubu/Schreibtisch/Projekte/3070ti-unlock/third_party/llama.cpp/build/bin/llama-bench -m /home/kiubu/Schreibtisch/Projekte/3070ti-unlock/models/qwen2.5-3b-instruct-F16.gguf -p 2048 -n 0 -r 7 -ngl 99 -fa on -o json
+2026-10-26 12:09:49.359 | INFO    | F16_pp2048_fa-on               5055.6 tokens/s  sd 129.6  n=7 | 64.1 W | 1117 MHz | 55 °C max | gpu_idle 14.3%, sw_power_cap 65.3%
+2026-10-26 12:09:49.360 | INFO    | [12/24] F16_tg128_fa-on
+2026-10-26 12:09:49.360 | DEBUG   | F16_tg128_fa-on: /home/kiubu/Schreibtisch/Projekte/3070ti-unlock/third_party/llama.cpp/build/bin/llama-bench -m /home/kiubu/Schreibtisch/Projekte/3070ti-unlock/models/qwen2.5-3b-instruct-F16.gguf -p 0 -n 128 -r 7 -ngl 99 -fa on -o json
+2026-10-26 12:10:17.808 | INFO    | F16_tg128_fa-on                  53.5 tokens/s  sd   0.2  n=7 | 90.8 W | 1478 MHz | 58 °C max | gpu_idle 2.2%, sw_power_cap 89.7%
+2026-10-26 12:10:17.808 | INFO    | [13/24] Q8_0_pp512_fa-off
+2026-10-26 12:10:17.808 | DEBUG   | Q8_0_pp512_fa-off: /home/kiubu/Schreibtisch/Projekte/3070ti-unlock/third_party/llama.cpp/build/bin/llama-bench -m /home/kiubu/Schreibtisch/Projekte/3070ti-unlock/models/qwen2.5-3b-instruct-Q8_0.gguf -p 512 -n 0 -r 7 -ngl 99 -fa off -o json
+2026-10-26 12:10:32.033 | INFO    | Q8_0_pp512_fa-off              5108.4 tokens/s  sd  19.9  n=7 | 30.1 W | 1078 MHz | 55 °C max | gpu_idle 9.5%, sw_power_cap 19.0%
+2026-10-26 12:10:32.033 | INFO    | [14/24] Q8_0_pp2048_fa-off
+2026-10-26 12:10:32.033 | DEBUG   | Q8_0_pp2048_fa-off: /home/kiubu/Schreibtisch/Projekte/3070ti-unlock/third_party/llama.cpp/build/bin/llama-bench -m /home/kiubu/Schreibtisch/Projekte/3070ti-unlock/models/qwen2.5-3b-instruct-Q8_0.gguf -p 2048 -n 0 -r 7 -ngl 99 -fa off -o json
+2026-10-26 12:10:47.795 | INFO    | Q8_0_pp2048_fa-off             4086.1 tokens/s  sd  64.6  n=7 | 64.4 W | 1085 MHz | 56 °C max | gpu_idle 13.8%, sw_power_cap 69.0%
+2026-10-26 12:10:47.795 | INFO    | [15/24] Q8_0_tg128_fa-off
+2026-10-26 12:10:47.795 | DEBUG   | Q8_0_tg128_fa-off: /home/kiubu/Schreibtisch/Projekte/3070ti-unlock/third_party/llama.cpp/build/bin/llama-bench -m /home/kiubu/Schreibtisch/Projekte/3070ti-unlock/models/qwen2.5-3b-instruct-Q8_0.gguf -p 0 -n 128 -r 7 -ngl 99 -fa off -o json
+2026-10-26 12:11:08.906 | INFO    | Q8_0_tg128_fa-off                89.3 tokens/s  sd   0.7  n=7 | 83.2 W | 1341 MHz | 57 °C max | gpu_idle 3.6%, sw_power_cap 87.4%
+2026-10-26 12:11:08.906 | INFO    | [16/24] Q8_0_pp512_fa-on
+2026-10-26 12:11:08.906 | DEBUG   | Q8_0_pp512_fa-on: /home/kiubu/Schreibtisch/Projekte/3070ti-unlock/third_party/llama.cpp/build/bin/llama-bench -m /home/kiubu/Schreibtisch/Projekte/3070ti-unlock/models/qwen2.5-3b-instruct-Q8_0.gguf -p 512 -n 0 -r 7 -ngl 99 -fa on -o json
+2026-10-26 12:11:20.731 | INFO    | Q8_0_pp512_fa-on               6014.1 tokens/s  sd  17.6  n=7 | 35.6 W | 1152 MHz | 54 °C max | gpu_idle 16.7%, sw_power_cap 27.8%
+2026-10-26 12:11:20.731 | INFO    | [17/24] Q8_0_pp2048_fa-on
+2026-10-26 12:11:20.731 | DEBUG   | Q8_0_pp2048_fa-on: /home/kiubu/Schreibtisch/Projekte/3070ti-unlock/third_party/llama.cpp/build/bin/llama-bench -m /home/kiubu/Schreibtisch/Projekte/3070ti-unlock/models/qwen2.5-3b-instruct-Q8_0.gguf -p 2048 -n 0 -r 7 -ngl 99 -fa on -o json
+2026-10-26 12:11:34.758 | INFO    | Q8_0_pp2048_fa-on              5515.3 tokens/s  sd 176.4  n=7 | 66.5 W | 1114 MHz | 54 °C max | gpu_idle 14.6%, sw_power_cap 73.2%
+2026-10-26 12:11:34.758 | INFO    | [18/24] Q8_0_tg128_fa-on
+2026-10-26 12:11:34.758 | DEBUG   | Q8_0_tg128_fa-on: /home/kiubu/Schreibtisch/Projekte/3070ti-unlock/third_party/llama.cpp/build/bin/llama-bench -m /home/kiubu/Schreibtisch/Projekte/3070ti-unlock/models/qwen2.5-3b-instruct-Q8_0.gguf -p 0 -n 128 -r 7 -ngl 99 -fa on -o json
+2026-10-26 12:11:55.526 | INFO    | Q8_0_tg128_fa-on                 92.8 tokens/s  sd   0.5  n=7 | 84.9 W | 1360 MHz | 56 °C max | gpu_idle 5.6%, sw_power_cap 89.8%
+2026-10-26 12:11:55.526 | INFO    | [19/24] Q4_K_M_pp512_fa-off
+2026-10-26 12:11:55.526 | DEBUG   | Q4_K_M_pp512_fa-off: /home/kiubu/Schreibtisch/Projekte/3070ti-unlock/third_party/llama.cpp/build/bin/llama-bench -m /home/kiubu/Schreibtisch/Projekte/3070ti-unlock/models/qwen2.5-3b-instruct-Q4_K_M.gguf -p 512 -n 0 -r 7 -ngl 99 -fa off -o json
+2026-10-26 12:12:08.404 | INFO    | Q4_K_M_pp512_fa-off            4909.7 tokens/s  sd  46.4  n=7 | 39.2 W | 1113 MHz | 53 °C max | gpu_idle 10.7%, sw_power_cap 17.9%
+2026-10-26 12:12:08.404 | INFO    | [20/24] Q4_K_M_pp2048_fa-off
+2026-10-26 12:12:08.404 | DEBUG   | Q4_K_M_pp2048_fa-off: /home/kiubu/Schreibtisch/Projekte/3070ti-unlock/third_party/llama.cpp/build/bin/llama-bench -m /home/kiubu/Schreibtisch/Projekte/3070ti-unlock/models/qwen2.5-3b-instruct-Q4_K_M.gguf -p 2048 -n 0 -r 7 -ngl 99 -fa off -o json
+2026-10-26 12:12:23.382 | INFO    | Q4_K_M_pp2048_fa-off           3975.2 tokens/s  sd  98.9  n=7 | 73.5 W | 1233 MHz | 54 °C max | gpu_idle 10.0%, sw_power_cap 80.0%
+2026-10-26 12:12:23.384 | INFO    | [21/24] Q4_K_M_tg128_fa-off
+2026-10-26 12:12:23.384 | DEBUG   | Q4_K_M_tg128_fa-off: /home/kiubu/Schreibtisch/Projekte/3070ti-unlock/third_party/llama.cpp/build/bin/llama-bench -m /home/kiubu/Schreibtisch/Projekte/3070ti-unlock/models/qwen2.5-3b-instruct-Q4_K_M.gguf -p 0 -n 128 -r 7 -ngl 99 -fa off -o json
+2026-10-26 12:12:41.240 | INFO    | Q4_K_M_tg128_fa-off             128.3 tokens/s  sd   2.1  n=7 | 81.5 W | 1232 MHz | 55 °C max | gpu_idle 6.4%, sw_power_cap 87.2%
+2026-10-26 12:12:41.240 | INFO    | [22/24] Q4_K_M_pp512_fa-on
+2026-10-26 12:12:41.240 | DEBUG   | Q4_K_M_pp512_fa-on: /home/kiubu/Schreibtisch/Projekte/3070ti-unlock/third_party/llama.cpp/build/bin/llama-bench -m /home/kiubu/Schreibtisch/Projekte/3070ti-unlock/models/qwen2.5-3b-instruct-Q4_K_M.gguf -p 512 -n 0 -r 7 -ngl 99 -fa on -o json
+2026-10-26 12:12:52.983 | INFO    | Q4_K_M_pp512_fa-on             5401.2 tokens/s  sd  11.6  n=7 | 37.1 W | 862 MHz | 53 °C max | gpu_idle 35.3%, sw_power_cap 35.3%
+2026-10-26 12:12:52.983 | INFO    | [23/24] Q4_K_M_pp2048_fa-on
+2026-10-26 12:12:52.983 | DEBUG   | Q4_K_M_pp2048_fa-on: /home/kiubu/Schreibtisch/Projekte/3070ti-unlock/third_party/llama.cpp/build/bin/llama-bench -m /home/kiubu/Schreibtisch/Projekte/3070ti-unlock/models/qwen2.5-3b-instruct-Q4_K_M.gguf -p 2048 -n 0 -r 7 -ngl 99 -fa on -o json
+2026-10-26 12:13:06.968 | INFO    | Q4_K_M_pp2048_fa-on            5235.1 tokens/s  sd  32.9  n=7 | 70.7 W | 1177 MHz | 53 °C max | gpu_idle 10.0%, sw_power_cap 77.5%
+2026-10-26 12:13:06.968 | INFO    | [24/24] Q4_K_M_tg128_fa-on
+2026-10-26 12:13:06.968 | DEBUG   | Q4_K_M_tg128_fa-on: /home/kiubu/Schreibtisch/Projekte/3070ti-unlock/third_party/llama.cpp/build/bin/llama-bench -m /home/kiubu/Schreibtisch/Projekte/3070ti-unlock/models/qwen2.5-3b-instruct-Q4_K_M.gguf -p 0 -n 128 -r 7 -ngl 99 -fa on -o json
+2026-10-26 12:13:24.465 | INFO    | Q4_K_M_tg128_fa-on              134.6 tokens/s  sd   1.3  n=7 | 81.3 W | 1224 MHz | 54 °C max | gpu_idle 5.4%, sw_power_cap 87.8%
+2026-10-26 12:13:24.496 | INFO    | === Finished in 7.0 min: 24 ok, 0 failed. Results: /home/kiubu/Schreibtisch/Projekte/3070ti-unlock/results/llamacpp/20261026-120606_unlocked_unlocked-first ===

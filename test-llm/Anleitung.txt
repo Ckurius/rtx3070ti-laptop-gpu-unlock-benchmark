@@ -1,0 +1,38 @@
+Verstanden: Die erste Testreihe läuft wie geplant, und die llama.cpp-Reihe baue ich jetzt als eigenständige Serie mit eigenem Setup, eigenen Logs und eigenem Report im selben Projektordner. Kurz zu den Annahmen, damit die Ergebnisse später sauber interpretierbar sind:
+
+Ich kann llama.cpp hier klonen. Damit prüfe ich die aktuellen Optionen direkt im Quellcode, statt mich auf Dokus zu verlassen.
+
+Gut, Auto-Fit ist in llama-bench standardmäßig aus, also laufen alle Layer garantiert auf der GPU. Jetzt der Report-Generator für diese Serie:
+
+Ich teste die komplette llama.cpp-Pipeline hier mit einem simulierten `llama-bench`, das dasselbe JSON-Format ausgibt:
+
+Chris, die llama.cpp-Testreihe ist fertig: `3070ti-unlock-v1.1.tar.gz`. Testreihe 1 ist darin unverändert, du kannst also wie geplant weitermachen. Das Paket ersetzt nur die Skripte, deine Ergebnisse in `results/` bleiben erhalten.
+
+Die ganze Kette habe ich hier mit einem nachgebauten `llama-bench`, das dasselbe JSON-Format ausgibt, einmal durchgespielt: Messlauf, Logs, Report und Diagramm. Auf deiner GPU ist sie noch nicht gelaufen. Deshalb kommt zuerst `./llama.sh smoke`.
+
+**Was die Testreihe misst**
+Ein Modell (Qwen2.5-3B-Instruct) in vier Varianten, alle aus derselben BF16-Datei erzeugt. Damit ist es exakt dasselbe Netz, und alle Varianten passen in 8 GB. Laut aktuellem llama.cpp-Quellcode nimmt jede Variante einen anderen Rechenweg, deshalb ist das Ergebnis vorhersagbar und überprüfbar:
+
+| Variante | Rechenweg in llama.cpp | Erwartung durch den Unlock |
+|---|---|---|
+| BF16 | cuBLAS mit FP32-Akkumulation | deutlicher Gewinn, das ist der gedrosselte Pfad |
+| F16 | cuBLAS mit FP16-Akkumulation | kaum Effekt, dieser Pfad ist auf GeForce nicht gedrosselt |
+| Q8_0 und Q4_K_M | INT8-Kernel (MMQ) | kaum Effekt |
+| Textgenerierung | hängt an der Speicherbandbreite | kein Effekt, dient als Kontrolle |
+
+**Messprogramm:** Prompt-Verarbeitung mit 512 und 2048 Tokens sowie Textgenerierung mit 128 Tokens, jeweils mit Flash Attention aus und an. Jeder Test hat 7 Wiederholungen und dieselbe Abkühlphase und Telemetrie wie Testreihe 1. Die Rohausgabe von `llama-bench` wird pro Test gespeichert. Die Modelldateien werden per SHA-256 geprüft, damit beide Phasen nachweislich dieselben Dateien verwenden.
+
+**Ablauf (nach Testreihe 1)**
+1. **Paket entpacken** (ca. 1 Min.) im Projektordner:
+   ```
+   cd ~/Schreibtisch/Projekte/3070ti-unlock
+   tar -xzf ~/Downloads/3070ti-unlock-v1.1.tar.gz --strip-components=1
+   ```
+2. **Speicherplatz prüfen** (ca. 10 Sek.): `df -h ~`. Du brauchst rund 35 GB frei: CUDA-Toolkit, das Quellmodell und die vier GGUF-Dateien.
+3. **Setup** (ca. 30–60 Min., je nach Leitung): `./llama.sh setup`. Fehlt `nvcc`, installiert das Skript das CUDA-Toolkit 12.8 aus NVIDIAs Repository. Das ist nur das Toolkit, kein Treiber. Das Repository ist so eingestellt, dass es deinen Ubuntu-Treiber nie ersetzen kann. Danach baut das Skript llama.cpp für deine GPU und lädt und konvertiert das Modell.
+4. **Smoke-Test** (ca. 3 Min.): `./llama.sh smoke`
+5. **Baseline** (ca. 25–35 Min.): `./llama.sh baseline`. Am besten direkt im Anschluss an die Baseline von Testreihe 1, solange der Unlock noch nicht installiert ist.
+6. **Unlocked** (ca. 25–35 Min.): `./llama.sh unlocked`, nach `install-unlock` und Neustart, im selben Boot wie `./run.sh unlocked`.
+7. **Report** (ca. 1 Min.): `./llama.sh compare`. Er landet unter `reports/llamacpp/`.
+
+**Tipp zur Reihenfolge:** Wenn du `./llama.sh setup` jetzt gleich erledigst, kannst du beide Baselines in einem Boot hintereinander laufen lassen. Dann brauchst du nur einen Unlock-Neustart für beide Unlocked-Läufe.

@@ -1,0 +1,321 @@
+2026-10-26 11:44:48.449 | INFO    | === RTX 30 gpu-unlock benchmark suite v1.0.0 | phase=unlocked ===
+2026-10-26 11:44:48.449 | INFO    | Run directory: /home/kiubu/Schreibtisch/Projekte/3070ti-unlock/results/20261026-114448_unlocked_unlocked-first
+2026-10-26 11:44:48.450 | INFO    | Arguments: {"phase": "unlocked", "out_root": "/home/kiubu/Schreibtisch/Projekte/3070ti-unlock/results", "label": "unlocked-first", "samples": 5, "target_sec": 2.0, "warmup_sec": 3.0, "cooldown_temp": 55.0, "cooldown_min": 10.0, "cooldown_max": 120.0, "sustained_sec": 180.0, "idle_sec": 15.0, "only": null, "skip": null, "sd_model": null, "torchvision": true, "gpt_batch": null, "resnet_batch": null, "gpu_unlock_dir": "/home/kiubu/gpu-unlock", "smoke": false, "force": false, "list": false}
+2026-10-26 11:44:51.544 | INFO    | GPU: NVIDIA GeForce RTX 3070 Ti Laptop GPU | PCI 00000000:01:00.0 (0x24E010DE) | VBIOS 94.04.7C.00.10 | driver 595.99.02 (open) | 46 SMs | 7842 MiB
+2026-10-26 11:44:51.545 | INFO    | Power limit: current [N/A] | default 80.00 W | max 150.00 W | Dynamic Boost Supported | nvidia-powerd active
+2026-10-26 11:44:51.545 | INFO    | Host: Kiubu | Ubuntu 24.04.5 LTS | kernel 7.0.0-38-generic | CPU 12th Gen Intel(R) Core(TM) i9-12900H
+2026-10-26 11:44:51.545 | INFO    | PyTorch 2.14.1+cu130 | CUDA 13.0 | cuDNN 92400 | profile performance | AC True | Runtime D3 Disabled
+2026-10-26 11:44:51.545 | INFO    | gpu_unlock state for this boot: unlocked (cmdline targets=0000:01:00.0, module loaded=True, log lines=17)
+2026-10-26 11:44:51.545 | INFO    | Telemetry backend: nvml (interval 0.1 s)
+2026-10-26 11:45:06.558 | INFO    | Idle reference (15s): 19.1 W, 45 °C, 210 MHz
+2026-10-26 11:45:06.558 | INFO    | Running 34 tests (5 samples × 2.0 s each, cooldown to 55 °C)
+2026-10-26 11:45:06.558 | INFO    | [1/34] correct_gemm_fp16
+2026-10-26 11:45:07.051 | INFO    | correct_gemm_fp16            sha256 0b110e7143b303ca… | deterministic=True | max rel err 2.663e-04 | mean rel err 1.761e-04
+2026-10-26 11:45:07.112 | INFO    | [2/34] correct_gemm_bf16
+2026-10-26 11:45:07.307 | INFO    | correct_gemm_bf16            sha256 c52bec3916e9d732… | deterministic=True | max rel err 2.107e-03 | mean rel err 1.409e-03
+2026-10-26 11:45:07.370 | INFO    | [3/34] correct_gemm_tf32
+2026-10-26 11:45:07.529 | INFO    | correct_gemm_tf32            sha256 f7b3e0f53b4f12b5… | deterministic=True | max rel err 3.199e-04 | mean rel err 2.939e-04
+2026-10-26 11:45:07.598 | INFO    | [4/34] correct_gemm_fp32
+2026-10-26 11:45:07.730 | INFO    | correct_gemm_fp32            sha256 1f14b56c462a138c… | deterministic=True | max rel err 2.282e-06 | mean rel err 7.128e-07
+2026-10-26 11:45:07.801 | INFO    | [5/34] gemm_fp16_2048
+2026-10-26 11:45:17.802 | DEBUG   | gemm_fp16_2048: cooldown 10.0 s, start temp 44 °C
+2026-10-26 11:45:17.802 | DEBUG   | gemm_fp16_2048: Dense 2048³ GEMM, FP16 inputs, FP32 accumulate (cuBLAS)
+2026-10-26 11:45:23.245 | DEBUG   | gemm_fp16_2048: sample 1/5 = 40.9267 (4703 calls, 1.974 s)
+2026-10-26 11:45:25.221 | DEBUG   | gemm_fp16_2048: sample 2/5 = 40.8983 (4703 calls, 1.976 s)
+2026-10-26 11:45:27.149 | DEBUG   | gemm_fp16_2048: sample 3/5 = 41.9132 (4703 calls, 1.928 s)
+2026-10-26 11:45:29.026 | DEBUG   | gemm_fp16_2048: sample 4/5 = 43.0422 (4703 calls, 1.877 s)
+2026-10-26 11:45:30.918 | DEBUG   | gemm_fp16_2048: sample 5/5 = 42.7265 (4703 calls, 1.891 s)
+2026-10-26 11:45:30.929 | INFO    | gemm_fp16_2048                    41.91 TFLOPS    cv  2.4%  n=5 | 101.0 W avg | 1064 MHz | 55 °C max | sw_power_cap 100.0%
+2026-10-26 11:45:30.992 | INFO    | [6/34] gemm_bf16_2048
+2026-10-26 11:45:40.992 | DEBUG   | gemm_bf16_2048: cooldown 10.0 s, start temp 48 °C
+2026-10-26 11:45:40.992 | DEBUG   | gemm_bf16_2048: Dense 2048³ GEMM, BF16 inputs, FP32 accumulate (cuBLAS)
+2026-10-26 11:45:46.443 | DEBUG   | gemm_bf16_2048: sample 1/5 = 41.9151 (4970 calls, 2.037 s)
+2026-10-26 11:45:48.490 | DEBUG   | gemm_bf16_2048: sample 2/5 = 41.7160 (4970 calls, 2.047 s)
+2026-10-26 11:45:50.429 | DEBUG   | gemm_bf16_2048: sample 3/5 = 44.0410 (4970 calls, 1.939 s)
+2026-10-26 11:45:52.340 | DEBUG   | gemm_bf16_2048: sample 4/5 = 44.6771 (4970 calls, 1.911 s)
+2026-10-26 11:45:54.256 | DEBUG   | gemm_bf16_2048: sample 5/5 = 44.5624 (4970 calls, 1.916 s)
+2026-10-26 11:45:54.268 | INFO    | gemm_bf16_2048                    44.04 TFLOPS    cv  3.3%  n=5 | 100.7 W avg | 1092 MHz | 57 °C max | sw_power_cap 100.0%
+2026-10-26 11:45:54.329 | INFO    | [7/34] gemm_tf32_2048
+2026-10-26 11:46:04.329 | DEBUG   | gemm_tf32_2048: cooldown 10.0 s, start temp 51 °C
+2026-10-26 11:46:04.329 | DEBUG   | gemm_tf32_2048: Dense 2048³ GEMM, FP32 inputs via TF32 tensor cores, FP32 accumulate
+2026-10-26 11:46:10.120 | DEBUG   | gemm_tf32_2048: sample 1/5 = 22.4837 (2619 calls, 2.001 s)
+2026-10-26 11:46:12.130 | DEBUG   | gemm_tf32_2048: sample 2/5 = 22.3879 (2619 calls, 2.010 s)
+2026-10-26 11:46:14.085 | DEBUG   | gemm_tf32_2048: sample 3/5 = 23.0202 (2619 calls, 1.955 s)
+2026-10-26 11:46:16.029 | DEBUG   | gemm_tf32_2048: sample 4/5 = 23.1397 (2619 calls, 1.944 s)
+2026-10-26 11:46:18.013 | DEBUG   | gemm_tf32_2048: sample 5/5 = 22.6829 (2619 calls, 1.984 s)
+2026-10-26 11:46:18.015 | INFO    | gemm_tf32_2048                    22.68 TFLOPS    cv  1.4%  n=5 | 101.8 W avg | 1137 MHz | 59 °C max | sw_power_cap 100.0%
+2026-10-26 11:46:18.079 | INFO    | [8/34] gemm_fp32_2048
+2026-10-26 11:46:28.079 | DEBUG   | gemm_fp32_2048: cooldown 10.0 s, start temp 53 °C
+2026-10-26 11:46:28.079 | DEBUG   | gemm_fp32_2048: Dense 2048³ GEMM, FP32 on CUDA cores, TF32 disabled (control)
+2026-10-26 11:46:35.412 | DEBUG   | gemm_fp32_2048: sample 1/5 = 7.5338 (869 calls, 1.982 s)
+2026-10-26 11:46:37.368 | DEBUG   | gemm_fp32_2048: sample 2/5 = 7.6350 (869 calls, 1.955 s)
+2026-10-26 11:46:39.266 | DEBUG   | gemm_fp32_2048: sample 3/5 = 7.8672 (869 calls, 1.898 s)
+2026-10-26 11:46:41.186 | DEBUG   | gemm_fp32_2048: sample 4/5 = 7.7756 (869 calls, 1.920 s)
+2026-10-26 11:46:43.135 | DEBUG   | gemm_fp32_2048: sample 5/5 = 7.6626 (869 calls, 1.948 s)
+2026-10-26 11:46:43.147 | INFO    | gemm_fp32_2048                     7.66 TFLOPS    cv  1.7%  n=5 | 101.3 W avg | 1111 MHz | 61 °C max | sw_power_cap 100.0%
+2026-10-26 11:46:43.209 | INFO    | [9/34] gemm_int8_2048
+2026-10-26 11:46:53.210 | DEBUG   | gemm_int8_2048: cooldown 10.0 s, start temp 54 °C
+2026-10-26 11:46:53.210 | DEBUG   | gemm_int8_2048: Dense 2048³ GEMM, INT8 inputs, INT32 accumulate via torch._int_mm (control)
+2026-10-26 11:46:58.984 | DEBUG   | gemm_int8_2048: sample 1/5 = 22.9583 (2668 calls, 1.996 s)
+2026-10-26 11:47:00.970 | DEBUG   | gemm_int8_2048: sample 2/5 = 23.0871 (2668 calls, 1.985 s)
+2026-10-26 11:47:02.887 | DEBUG   | gemm_int8_2048: sample 3/5 = 23.9100 (2668 calls, 1.917 s)
+2026-10-26 11:47:04.807 | DEBUG   | gemm_int8_2048: sample 4/5 = 23.8809 (2668 calls, 1.919 s)
+2026-10-26 11:47:06.707 | DEBUG   | gemm_int8_2048: sample 5/5 = 24.1238 (2668 calls, 1.900 s)
+2026-10-26 11:47:06.719 | INFO    | gemm_int8_2048                    23.88 TOPS      cv  2.2%  n=5 | 101.8 W avg | 1216 MHz | 62 °C max | sw_power_cap 100.0%
+2026-10-26 11:47:06.781 | INFO    | [10/34] gemm_fp16_4096
+2026-10-26 11:47:16.781 | DEBUG   | gemm_fp16_4096: cooldown 10.0 s, start temp 55 °C
+2026-10-26 11:47:16.781 | DEBUG   | gemm_fp16_4096: Dense 4096³ GEMM, FP16 inputs, FP32 accumulate (cuBLAS)
+2026-10-26 11:47:24.679 | DEBUG   | gemm_fp16_4096: sample 1/5 = 48.4877 (709 calls, 2.010 s)
+2026-10-26 11:47:26.623 | DEBUG   | gemm_fp16_4096: sample 2/5 = 50.1335 (709 calls, 1.944 s)
+2026-10-26 11:47:28.567 | DEBUG   | gemm_fp16_4096: sample 3/5 = 50.1307 (709 calls, 1.944 s)
+2026-10-26 11:47:30.551 | DEBUG   | gemm_fp16_4096: sample 4/5 = 49.1181 (709 calls, 1.984 s)
+2026-10-26 11:47:32.501 | DEBUG   | gemm_fp16_4096: sample 5/5 = 49.9849 (709 calls, 1.949 s)
+2026-10-26 11:47:32.503 | INFO    | gemm_fp16_4096                    49.98 TFLOPS    cv  1.5%  n=5 | 102.8 W avg | 1171 MHz | 63 °C max | sw_power_cap 100.0%
+2026-10-26 11:47:32.566 | INFO    | [11/34] gemm_bf16_4096
+2026-10-26 11:47:44.567 | DEBUG   | gemm_bf16_4096: cooldown 12.0 s, start temp 55 °C
+2026-10-26 11:47:44.568 | DEBUG   | gemm_bf16_4096: Dense 4096³ GEMM, BF16 inputs, FP32 accumulate (cuBLAS)
+2026-10-26 11:47:52.343 | DEBUG   | gemm_bf16_4096: sample 1/5 = 50.9442 (744 calls, 2.007 s)
+2026-10-26 11:47:54.308 | DEBUG   | gemm_bf16_4096: sample 2/5 = 52.0465 (744 calls, 1.965 s)
+2026-10-26 11:47:56.269 | DEBUG   | gemm_bf16_4096: sample 3/5 = 52.1607 (744 calls, 1.960 s)
+2026-10-26 11:47:58.278 | DEBUG   | gemm_bf16_4096: sample 4/5 = 50.8908 (744 calls, 2.009 s)
+2026-10-26 11:48:00.255 | DEBUG   | gemm_bf16_4096: sample 5/5 = 51.7325 (744 calls, 1.977 s)
+2026-10-26 11:48:00.267 | INFO    | gemm_bf16_4096                    51.73 TFLOPS    cv  1.2%  n=5 | 102.8 W avg | 1224 MHz | 63 °C max | sw_power_cap 100.0%
+2026-10-26 11:48:00.331 | INFO    | [12/34] gemm_tf32_4096
+2026-10-26 11:48:16.333 | DEBUG   | gemm_tf32_4096: cooldown 16.0 s, start temp 55 °C
+2026-10-26 11:48:16.333 | DEBUG   | gemm_tf32_4096: Dense 4096³ GEMM, FP32 inputs via TF32 tensor cores, FP32 accumulate
+2026-10-26 11:48:27.149 | DEBUG   | gemm_tf32_4096: sample 1/5 = 25.1826 (367 calls, 2.003 s)
+2026-10-26 11:48:29.165 | DEBUG   | gemm_tf32_4096: sample 2/5 = 25.0194 (367 calls, 2.016 s)
+2026-10-26 11:48:31.200 | DEBUG   | gemm_tf32_4096: sample 3/5 = 24.7907 (367 calls, 2.035 s)
+2026-10-26 11:48:33.222 | DEBUG   | gemm_tf32_4096: sample 4/5 = 24.9539 (367 calls, 2.021 s)
+2026-10-26 11:48:35.260 | DEBUG   | gemm_tf32_4096: sample 5/5 = 24.7444 (367 calls, 2.038 s)
+2026-10-26 11:48:35.273 | INFO    | gemm_tf32_4096                    24.95 TFLOPS    cv  0.7%  n=5 | 104.5 W avg | 1189 MHz | 63 °C max | sw_power_cap 100.0%
+2026-10-26 11:48:35.342 | INFO    | [13/34] gemm_fp32_4096
+2026-10-26 11:48:52.345 | DEBUG   | gemm_fp32_4096: cooldown 17.0 s, start temp 55 °C
+2026-10-26 11:48:52.346 | DEBUG   | gemm_fp32_4096: Dense 4096³ GEMM, FP32 on CUDA cores, TF32 disabled (control)
+2026-10-26 11:49:06.501 | DEBUG   | gemm_fp32_4096: sample 1/5 = 7.8265 (114 calls, 2.002 s)
+2026-10-26 11:49:08.465 | DEBUG   | gemm_fp32_4096: sample 2/5 = 7.9805 (114 calls, 1.963 s)
+2026-10-26 11:49:10.431 | DEBUG   | gemm_fp32_4096: sample 3/5 = 7.9700 (114 calls, 1.966 s)
+2026-10-26 11:49:12.439 | DEBUG   | gemm_fp32_4096: sample 4/5 = 7.8018 (114 calls, 2.008 s)
+2026-10-26 11:49:14.405 | DEBUG   | gemm_fp32_4096: sample 5/5 = 7.9710 (114 calls, 1.966 s)
+2026-10-26 11:49:14.417 | INFO    | gemm_fp32_4096                     7.97 TFLOPS    cv  1.1%  n=5 | 103.2 W avg | 1055 MHz | 64 °C max | sw_power_cap 100.0%
+2026-10-26 11:49:14.483 | INFO    | [14/34] gemm_int8_4096
+2026-10-26 11:49:28.485 | DEBUG   | gemm_int8_4096: cooldown 14.0 s, start temp 55 °C
+2026-10-26 11:49:28.485 | DEBUG   | gemm_int8_4096: Dense 4096³ GEMM, INT8 inputs, INT32 accumulate via torch._int_mm (control)
+2026-10-26 11:49:39.587 | DEBUG   | gemm_int8_4096: sample 1/5 = 23.8326 (345 calls, 1.990 s)
+2026-10-26 11:49:41.595 | DEBUG   | gemm_int8_4096: sample 2/5 = 23.6089 (345 calls, 2.008 s)
+2026-10-26 11:49:43.595 | DEBUG   | gemm_int8_4096: sample 3/5 = 23.7100 (345 calls, 2.000 s)
+2026-10-26 11:49:45.583 | DEBUG   | gemm_int8_4096: sample 4/5 = 23.8635 (345 calls, 1.987 s)
+2026-10-26 11:49:47.602 | DEBUG   | gemm_int8_4096: sample 5/5 = 23.4862 (345 calls, 2.019 s)
+2026-10-26 11:49:47.604 | INFO    | gemm_int8_4096                    23.71 TOPS      cv  0.7%  n=5 | 104.1 W avg | 1122 MHz | 62 °C max | sw_power_cap 100.0%
+2026-10-26 11:49:47.668 | INFO    | [15/34] gemm_fp16_8192
+2026-10-26 11:49:59.669 | DEBUG   | gemm_fp16_8192: cooldown 12.0 s, start temp 55 °C
+2026-10-26 11:49:59.669 | DEBUG   | gemm_fp16_8192: Dense 8192³ GEMM, FP16 inputs, FP32 accumulate (cuBLAS)
+2026-10-26 11:50:26.568 | DEBUG   | gemm_fp16_8192: sample 1/5 = 51.3605 (95 calls, 2.034 s)
+2026-10-26 11:50:28.570 | DEBUG   | gemm_fp16_8192: sample 2/5 = 52.1712 (95 calls, 2.002 s)
+2026-10-26 11:50:30.579 | DEBUG   | gemm_fp16_8192: sample 3/5 = 52.0016 (95 calls, 2.009 s)
+2026-10-26 11:50:32.644 | DEBUG   | gemm_fp16_8192: sample 4/5 = 50.5807 (95 calls, 2.065 s)
+2026-10-26 11:50:34.642 | DEBUG   | gemm_fp16_8192: sample 5/5 = 52.3085 (95 calls, 1.997 s)
+2026-10-26 11:50:34.654 | INFO    | gemm_fp16_8192                    52.00 TFLOPS    cv  1.4%  n=5 | 103.7 W avg | 1126 MHz | 64 °C max | sw_power_cap 100.0%
+2026-10-26 11:50:34.723 | INFO    | [16/34] gemm_bf16_8192
+2026-10-26 11:50:51.726 | DEBUG   | gemm_bf16_8192: cooldown 17.0 s, start temp 55 °C
+2026-10-26 11:50:51.726 | DEBUG   | gemm_bf16_8192: Dense 8192³ GEMM, BF16 inputs, FP32 accumulate (cuBLAS)
+2026-10-26 11:51:19.172 | DEBUG   | gemm_bf16_8192: sample 1/5 = 50.5238 (82 calls, 1.785 s)
+2026-10-26 11:51:20.944 | DEBUG   | gemm_bf16_8192: sample 2/5 = 50.8837 (82 calls, 1.772 s)
+2026-10-26 11:51:22.743 | DEBUG   | gemm_bf16_8192: sample 3/5 = 50.1339 (82 calls, 1.798 s)
+2026-10-26 11:51:24.538 | DEBUG   | gemm_bf16_8192: sample 4/5 = 50.2255 (82 calls, 1.795 s)
+2026-10-26 11:51:26.317 | DEBUG   | gemm_bf16_8192: sample 5/5 = 50.6928 (82 calls, 1.779 s)
+2026-10-26 11:51:26.329 | INFO    | gemm_bf16_8192                    50.52 TFLOPS    cv  0.6%  n=5 | 104.4 W avg | 1109 MHz | 64 °C max | sw_power_cap 100.0%
+2026-10-26 11:51:26.402 | INFO    | [17/34] gemm_tf32_8192
+2026-10-26 11:51:44.405 | DEBUG   | gemm_tf32_8192: cooldown 18.0 s, start temp 55 °C
+2026-10-26 11:51:44.406 | DEBUG   | gemm_tf32_8192: Dense 8192³ GEMM, FP32 inputs via TF32 tensor cores, FP32 accumulate
+2026-10-26 11:52:33.827 | DEBUG   | gemm_tf32_8192: sample 1/5 = 25.6457 (47 calls, 2.015 s)
+2026-10-26 11:52:35.849 | DEBUG   | gemm_tf32_8192: sample 2/5 = 25.5654 (47 calls, 2.021 s)
+2026-10-26 11:52:37.912 | DEBUG   | gemm_tf32_8192: sample 3/5 = 25.0531 (47 calls, 2.063 s)
+2026-10-26 11:52:39.945 | DEBUG   | gemm_tf32_8192: sample 4/5 = 25.4239 (47 calls, 2.033 s)
+2026-10-26 11:52:41.967 | DEBUG   | gemm_tf32_8192: sample 5/5 = 25.5565 (47 calls, 2.022 s)
+2026-10-26 11:52:41.969 | INFO    | gemm_tf32_8192                    25.56 TFLOPS    cv  0.9%  n=5 | 104.0 W avg | 1118 MHz | 66 °C max | sw_power_cap 100.0%
+2026-10-26 11:52:42.055 | INFO    | [18/34] gemm_fp32_8192
+2026-10-26 11:53:04.059 | DEBUG   | gemm_fp32_8192: cooldown 22.0 s, start temp 55 °C
+2026-10-26 11:53:04.059 | DEBUG   | gemm_fp32_8192: Dense 8192³ GEMM, FP32 on CUDA cores, TF32 disabled (control)
+2026-10-26 11:54:58.703 | DEBUG   | gemm_fp32_8192: sample 1/5 = 10.4117 (19 calls, 2.006 s)
+2026-10-26 11:55:00.722 | DEBUG   | gemm_fp32_8192: sample 2/5 = 10.3491 (19 calls, 2.019 s)
+2026-10-26 11:55:02.736 | DEBUG   | gemm_fp32_8192: sample 3/5 = 10.3731 (19 calls, 2.014 s)
+2026-10-26 11:55:04.751 | DEBUG   | gemm_fp32_8192: sample 4/5 = 10.3710 (19 calls, 2.014 s)
+2026-10-26 11:55:06.763 | DEBUG   | gemm_fp32_8192: sample 5/5 = 10.3816 (19 calls, 2.012 s)
+2026-10-26 11:55:06.776 | INFO    | gemm_fp32_8192                    10.37 TFLOPS    cv  0.2%  n=5 | 104.5 W avg | 1130 MHz | 67 °C max | sw_power_cap 100.0%
+2026-10-26 11:55:06.862 | INFO    | [19/34] gemm_int8_8192
+2026-10-26 11:55:30.867 | DEBUG   | gemm_int8_8192: cooldown 24.0 s, start temp 55 °C
+2026-10-26 11:55:30.867 | DEBUG   | gemm_int8_8192: Dense 8192³ GEMM, INT8 inputs, INT32 accumulate via torch._int_mm (control)
+2026-10-26 11:56:25.544 | DEBUG   | gemm_int8_8192: sample 1/5 = 22.7174 (42 calls, 2.033 s)
+2026-10-26 11:56:27.589 | DEBUG   | gemm_int8_8192: sample 2/5 = 22.5854 (42 calls, 2.045 s)
+2026-10-26 11:56:29.612 | DEBUG   | gemm_int8_8192: sample 3/5 = 22.8342 (42 calls, 2.022 s)
+2026-10-26 11:56:31.643 | DEBUG   | gemm_int8_8192: sample 4/5 = 22.7364 (42 calls, 2.031 s)
+2026-10-26 11:56:33.686 | DEBUG   | gemm_int8_8192: sample 5/5 = 22.6127 (42 calls, 2.042 s)
+2026-10-26 11:56:33.698 | INFO    | gemm_int8_8192                    22.72 TOPS      cv  0.4%  n=5 | 104.1 W avg | 1062 MHz | 66 °C max | sw_power_cap 100.0%
+2026-10-26 11:56:33.772 | INFO    | [20/34] membw_copy_1gib
+2026-10-26 11:56:56.776 | DEBUG   | membw_copy_1gib: cooldown 23.0 s, start temp 55 °C
+2026-10-26 11:56:56.776 | DEBUG   | membw_copy_1gib: Device-to-device copy of 1 GiB, read+write bytes (control)
+2026-10-26 11:57:04.972 | DEBUG   | membw_copy_1gib: sample 1/5 = 349.5594 (325 calls, 1.997 s)
+2026-10-26 11:57:06.969 | DEBUG   | membw_copy_1gib: sample 2/5 = 349.5089 (325 calls, 1.997 s)
+2026-10-26 11:57:08.966 | DEBUG   | membw_copy_1gib: sample 3/5 = 349.5174 (325 calls, 1.997 s)
+2026-10-26 11:57:10.963 | DEBUG   | membw_copy_1gib: sample 4/5 = 349.5510 (325 calls, 1.997 s)
+2026-10-26 11:57:12.960 | DEBUG   | membw_copy_1gib: sample 5/5 = 349.5420 (325 calls, 1.997 s)
+2026-10-26 11:57:12.962 | INFO    | membw_copy_1gib                  349.54 GB/s      cv  0.0%  n=5 | 93.7 W avg | 1635 MHz | 62 °C max | no throttle
+2026-10-26 11:57:13.084 | INFO    | [21/34] sdpa_fwd_fp16
+2026-10-26 11:57:26.086 | DEBUG   | sdpa_fwd_fp16: cooldown 13.0 s, start temp 55 °C
+2026-10-26 11:57:26.086 | DEBUG   | sdpa_fwd_fp16: scaled_dot_product_attention forward, B8 H16 S2048 D64, FP16
+2026-10-26 11:57:34.286 | DEBUG   | sdpa_fwd_fp16: sample 1/5 = 44.3213 (633 calls, 1.963 s)
+2026-10-26 11:57:36.234 | DEBUG   | sdpa_fwd_fp16: sample 2/5 = 44.6613 (633 calls, 1.948 s)
+2026-10-26 11:57:38.182 | DEBUG   | sdpa_fwd_fp16: sample 3/5 = 44.6611 (633 calls, 1.948 s)
+2026-10-26 11:57:40.143 | DEBUG   | sdpa_fwd_fp16: sample 4/5 = 44.3849 (633 calls, 1.960 s)
+2026-10-26 11:57:42.102 | DEBUG   | sdpa_fwd_fp16: sample 5/5 = 44.4083 (633 calls, 1.959 s)
+2026-10-26 11:57:42.114 | INFO    | sdpa_fwd_fp16                     44.41 TFLOPS    cv  0.4%  n=5 | 103.7 W avg | 1191 MHz | 63 °C max | sw_power_cap 100.0%
+2026-10-26 11:57:42.183 | INFO    | [22/34] sdpa_fwd_bf16
+2026-10-26 11:57:52.184 | DEBUG   | sdpa_fwd_bf16: cooldown 10.0 s, start temp 55 °C
+2026-10-26 11:57:52.184 | DEBUG   | sdpa_fwd_bf16: scaled_dot_product_attention forward, B8 H16 S2048 D64, BF16
+2026-10-26 11:58:00.306 | DEBUG   | sdpa_fwd_bf16: sample 1/5 = 45.4007 (650 calls, 1.968 s)
+2026-10-26 11:58:02.249 | DEBUG   | sdpa_fwd_bf16: sample 2/5 = 45.9789 (650 calls, 1.943 s)
+2026-10-26 11:58:04.192 | DEBUG   | sdpa_fwd_bf16: sample 3/5 = 45.9821 (650 calls, 1.943 s)
+2026-10-26 11:58:06.148 | DEBUG   | sdpa_fwd_bf16: sample 4/5 = 45.6796 (650 calls, 1.956 s)
+2026-10-26 11:58:08.099 | DEBUG   | sdpa_fwd_bf16: sample 5/5 = 45.7924 (650 calls, 1.951 s)
+2026-10-26 11:58:08.110 | INFO    | sdpa_fwd_bf16                     45.79 TFLOPS    cv  0.5%  n=5 | 103.6 W avg | 1224 MHz | 63 °C max | sw_power_cap 100.0%
+2026-10-26 11:58:08.178 | INFO    | [23/34] sdpa_fwdbwd_bf16
+2026-10-26 11:58:19.178 | DEBUG   | sdpa_fwdbwd_bf16: cooldown 11.0 s, start temp 55 °C
+2026-10-26 11:58:19.178 | DEBUG   | sdpa_fwdbwd_bf16: scaled_dot_product_attention forward+backward, BF16
+2026-10-26 11:58:26.244 | DEBUG   | sdpa_fwdbwd_bf16: sample 1/5 = 41.0248 (168 calls, 1.970 s)
+2026-10-26 11:58:28.173 | DEBUG   | sdpa_fwdbwd_bf16: sample 2/5 = 41.9021 (168 calls, 1.929 s)
+2026-10-26 11:58:30.086 | DEBUG   | sdpa_fwdbwd_bf16: sample 3/5 = 42.2489 (168 calls, 1.913 s)
+2026-10-26 11:58:32.016 | DEBUG   | sdpa_fwdbwd_bf16: sample 4/5 = 41.8806 (168 calls, 1.930 s)
+2026-10-26 11:58:33.939 | DEBUG   | sdpa_fwdbwd_bf16: sample 5/5 = 42.0320 (168 calls, 1.923 s)
+2026-10-26 11:58:33.950 | INFO    | sdpa_fwdbwd_bf16                  41.90 TFLOPS    cv  1.1%  n=5 | 102.8 W avg | 1285 MHz | 63 °C max | sw_power_cap 100.0%
+2026-10-26 11:58:34.025 | INFO    | [24/34] conv3x3_fp16
+2026-10-26 11:58:45.025 | DEBUG   | conv3x3_fp16: cooldown 11.0 s, start temp 55 °C
+2026-10-26 11:58:45.025 | DEBUG   | conv3x3_fp16: Conv2d 3x3 256->256 @56x56 N32 channels_last, FP16 (cuDNN)
+2026-10-26 11:58:52.771 | DEBUG   | conv3x3_fp16: sample 1/5 = 49.8189 (830 calls, 1.972 s)
+2026-10-26 11:58:54.707 | DEBUG   | conv3x3_fp16: sample 2/5 = 50.7502 (830 calls, 1.936 s)
+2026-10-26 11:58:56.645 | DEBUG   | conv3x3_fp16: sample 3/5 = 50.7024 (830 calls, 1.938 s)
+2026-10-26 11:58:58.582 | DEBUG   | conv3x3_fp16: sample 4/5 = 50.7366 (830 calls, 1.937 s)
+2026-10-26 11:59:00.529 | DEBUG   | conv3x3_fp16: sample 5/5 = 50.4654 (830 calls, 1.947 s)
+2026-10-26 11:59:00.541 | INFO    | conv3x3_fp16                      50.70 TFLOPS    cv  0.8%  n=5 | 103.3 W avg | 1140 MHz | 62 °C max | sw_power_cap 100.0%
+2026-10-26 11:59:00.610 | INFO    | [25/34] conv3x3_bf16
+2026-10-26 11:59:10.611 | DEBUG   | conv3x3_bf16: cooldown 10.0 s, start temp 55 °C
+2026-10-26 11:59:10.611 | DEBUG   | conv3x3_bf16: Conv2d 3x3 256->256 @56x56 N32 channels_last, BF16 (cuDNN)
+2026-10-26 11:59:18.071 | DEBUG   | conv3x3_bf16: sample 1/5 = 51.8691 (880 calls, 2.008 s)
+2026-10-26 11:59:20.053 | DEBUG   | conv3x3_bf16: sample 2/5 = 52.5778 (880 calls, 1.981 s)
+2026-10-26 11:59:22.018 | DEBUG   | conv3x3_bf16: sample 3/5 = 53.0192 (880 calls, 1.965 s)
+2026-10-26 11:59:24.008 | DEBUG   | conv3x3_bf16: sample 4/5 = 52.3420 (880 calls, 1.990 s)
+2026-10-26 11:59:25.993 | DEBUG   | conv3x3_bf16: sample 5/5 = 52.4894 (880 calls, 1.985 s)
+2026-10-26 11:59:26.005 | INFO    | conv3x3_bf16                      52.49 TFLOPS    cv  0.8%  n=5 | 103.1 W avg | 1188 MHz | 62 °C max | sw_power_cap 100.0%
+2026-10-26 11:59:26.070 | INFO    | [26/34] llm_prefill_bf16_p512
+2026-10-26 11:59:36.070 | DEBUG   | llm_prefill_bf16_p512: cooldown 10.0 s, start temp 55 °C
+2026-10-26 11:59:36.070 | DEBUG   | llm_prefill_bf16_p512: LLM prompt processing, ~1B Llama-style model, BF16, 512-token prompt
+2026-10-26 11:59:41.398 | DEBUG   | llm_prefill_bf16_p512: sample 1/5 = 18958.3657 (74 calls, 1.998 s)
+2026-10-26 11:59:43.399 | DEBUG   | llm_prefill_bf16_p512: sample 2/5 = 18930.8568 (74 calls, 2.001 s)
+2026-10-26 11:59:45.388 | DEBUG   | llm_prefill_bf16_p512: sample 3/5 = 19051.6305 (74 calls, 1.989 s)
+2026-10-26 11:59:47.366 | DEBUG   | llm_prefill_bf16_p512: sample 4/5 = 19161.4646 (74 calls, 1.977 s)
+2026-10-26 11:59:49.349 | DEBUG   | llm_prefill_bf16_p512: sample 5/5 = 19104.1406 (74 calls, 1.983 s)
+2026-10-26 11:59:49.362 | INFO    | llm_prefill_bf16_p512          19051.63 tokens/s  cv  0.5%  n=5 | 103.2 W avg | 1358 MHz | 62 °C max | sw_power_cap 100.0%
+2026-10-26 11:59:49.477 | INFO    | [27/34] llm_prefill_bf16_p2048
+2026-10-26 11:59:59.477 | DEBUG   | llm_prefill_bf16_p2048: cooldown 10.0 s, start temp 55 °C
+2026-10-26 11:59:59.478 | DEBUG   | llm_prefill_bf16_p2048: LLM prompt processing, ~1B Llama-style model, BF16, 2048-token prompt
+2026-10-26 12:00:05.296 | DEBUG   | llm_prefill_bf16_p2048: sample 1/5 = 21531.2729 (21 calls, 1.997 s)
+2026-10-26 12:00:07.281 | DEBUG   | llm_prefill_bf16_p2048: sample 2/5 = 21674.4215 (21 calls, 1.984 s)
+2026-10-26 12:00:09.205 | DEBUG   | llm_prefill_bf16_p2048: sample 3/5 = 22347.9615 (21 calls, 1.924 s)
+2026-10-26 12:00:11.131 | DEBUG   | llm_prefill_bf16_p2048: sample 4/5 = 22341.7927 (21 calls, 1.925 s)
+2026-10-26 12:00:13.057 | DEBUG   | llm_prefill_bf16_p2048: sample 5/5 = 22329.3562 (21 calls, 1.926 s)
+2026-10-26 12:00:13.069 | INFO    | llm_prefill_bf16_p2048         22329.36 tokens/s  cv  1.8%  n=5 | 102.2 W avg | 1246 MHz | 62 °C max | sw_power_cap 100.0%
+2026-10-26 12:00:13.187 | INFO    | [28/34] llm_decode_bf16_b1
+2026-10-26 12:00:23.188 | DEBUG   | llm_decode_bf16_b1: cooldown 10.0 s, start temp 55 °C
+2026-10-26 12:00:23.188 | DEBUG   | llm_decode_bf16_b1: LLM token generation batch 1 (bandwidth/launch-overhead bound, eager PyTorch; expected ~unchanged, informational)
+2026-10-26 12:00:32.723 | DEBUG   | llm_decode_bf16_b1: sample 1/5 = 149.7377 (2 calls, 1.710 s)
+2026-10-26 12:00:34.433 | DEBUG   | llm_decode_bf16_b1: sample 2/5 = 149.7436 (2 calls, 1.710 s)
+2026-10-26 12:00:36.146 | DEBUG   | llm_decode_bf16_b1: sample 3/5 = 149.4192 (2 calls, 1.713 s)
+2026-10-26 12:00:37.859 | DEBUG   | llm_decode_bf16_b1: sample 4/5 = 149.4791 (2 calls, 1.713 s)
+2026-10-26 12:00:39.569 | DEBUG   | llm_decode_bf16_b1: sample 5/5 = 149.7165 (2 calls, 1.710 s)
+2026-10-26 12:00:39.581 | INFO    | llm_decode_bf16_b1               149.72 tokens/s  cv  0.1%  n=5 | 100.5 W avg | 1632 MHz | 62 °C max | sw_power_cap 22.4%
+2026-10-26 12:00:39.698 | INFO    | [29/34] llm_decode_bf16_b16
+2026-10-26 12:00:49.702 | DEBUG   | llm_decode_bf16_b16: cooldown 10.0 s, start temp 55 °C
+2026-10-26 12:00:49.702 | DEBUG   | llm_decode_bf16_b16: LLM token generation batch 16 (more compute-bound)
+2026-10-26 12:01:02.220 | DEBUG   | llm_decode_bf16_b16: sample 1/5 = 1527.8243 (1 calls, 1.340 s)
+2026-10-26 12:01:03.560 | DEBUG   | llm_decode_bf16_b16: sample 2/5 = 1528.1699 (1 calls, 1.340 s)
+2026-10-26 12:01:04.900 | DEBUG   | llm_decode_bf16_b16: sample 3/5 = 1528.3393 (1 calls, 1.340 s)
+2026-10-26 12:01:06.241 | DEBUG   | llm_decode_bf16_b16: sample 4/5 = 1527.8011 (1 calls, 1.340 s)
+2026-10-26 12:01:07.582 | DEBUG   | llm_decode_bf16_b16: sample 5/5 = 1527.2142 (1 calls, 1.341 s)
+2026-10-26 12:01:07.594 | INFO    | llm_decode_bf16_b16             1527.82 tokens/s  cv  0.0%  n=5 | 104.9 W avg | 1492 MHz | 63 °C max | sw_power_cap 100.0%
+2026-10-26 12:01:07.761 | INFO    | [30/34] train_gpt124m_bf16
+2026-10-26 12:01:18.762 | DEBUG   | train_gpt124m_bf16: cooldown 11.0 s, start temp 55 °C
+2026-10-26 12:01:18.762 | DEBUG   | train_gpt124m_bf16: Training step GPT-style 124M, seq 1024, autocast BF16, fused AdamW
+2026-10-26 12:01:24.989 | DEBUG   | train_gpt124m_bf16: sample 1/5 = 25814.8042 (13 calls, 2.063 s)
+2026-10-26 12:01:27.042 | DEBUG   | train_gpt124m_bf16: sample 2/5 = 25934.9941 (13 calls, 2.053 s)
+2026-10-26 12:01:29.063 | DEBUG   | train_gpt124m_bf16: sample 3/5 = 26358.2345 (13 calls, 2.020 s)
+2026-10-26 12:01:31.086 | DEBUG   | train_gpt124m_bf16: sample 4/5 = 26323.2651 (13 calls, 2.023 s)
+2026-10-26 12:01:33.118 | DEBUG   | train_gpt124m_bf16: sample 5/5 = 26203.7075 (13 calls, 2.032 s)
+2026-10-26 12:01:33.120 | INFO    | train_gpt124m_bf16             26203.71 tokens/s  cv  0.9%  n=5 | 101.5 W avg | 1434 MHz | 62 °C max | sw_power_cap 100.0%
+2026-10-26 12:01:33.352 | INFO    | [31/34] train_gpt124m_fp16
+2026-10-26 12:01:44.354 | DEBUG   | train_gpt124m_fp16: cooldown 11.0 s, start temp 55 °C
+2026-10-26 12:01:44.354 | DEBUG   | train_gpt124m_fp16: Training step GPT-style 124M, seq 1024, autocast FP16 + GradScaler
+2026-10-26 12:01:50.433 | DEBUG   | train_gpt124m_fp16: sample 1/5 = 24923.5160 (12 calls, 1.972 s)
+2026-10-26 12:01:52.399 | DEBUG   | train_gpt124m_fp16: sample 2/5 = 25001.8618 (12 calls, 1.966 s)
+2026-10-26 12:01:54.335 | DEBUG   | train_gpt124m_fp16: sample 3/5 = 25391.6254 (12 calls, 1.936 s)
+2026-10-26 12:01:56.263 | DEBUG   | train_gpt124m_fp16: sample 4/5 = 25494.1746 (12 calls, 1.928 s)
+2026-10-26 12:01:58.199 | DEBUG   | train_gpt124m_fp16: sample 5/5 = 25392.1122 (12 calls, 1.936 s)
+2026-10-26 12:01:58.211 | INFO    | train_gpt124m_fp16             25391.63 tokens/s  cv  1.0%  n=5 | 101.4 W avg | 1395 MHz | 62 °C max | sw_power_cap 100.0%
+2026-10-26 12:01:58.449 | INFO    | [32/34] resnet50_train_bf16
+2026-10-26 12:02:08.449 | DEBUG   | resnet50_train_bf16: cooldown 10.0 s, start temp 55 °C
+2026-10-26 12:02:08.449 | DEBUG   | resnet50_train_bf16: ResNet-50 training 224px, autocast BF16, channels_last
+2026-10-26 12:02:18.139 | DEBUG   | resnet50_train_bf16: sample 1/5 = 537.5188 (17 calls, 2.024 s)
+2026-10-26 12:02:20.163 | DEBUG   | resnet50_train_bf16: sample 2/5 = 537.5640 (17 calls, 2.024 s)
+2026-10-26 12:02:22.165 | DEBUG   | resnet50_train_bf16: sample 3/5 = 543.6960 (17 calls, 2.001 s)
+2026-10-26 12:02:24.153 | DEBUG   | resnet50_train_bf16: sample 4/5 = 547.1722 (17 calls, 1.988 s)
+2026-10-26 12:02:26.140 | DEBUG   | resnet50_train_bf16: sample 5/5 = 547.7349 (17 calls, 1.986 s)
+2026-10-26 12:02:26.152 | INFO    | resnet50_train_bf16              543.70 images/s  cv  0.9%  n=5 | 100.6 W avg | 1397 MHz | 62 °C max | sw_power_cap 100.0%
+2026-10-26 12:02:26.298 | INFO    | [33/34] resnet50_infer_fp16
+2026-10-26 12:02:36.299 | DEBUG   | resnet50_infer_fp16: cooldown 10.0 s, start temp 55 °C
+2026-10-26 12:02:36.299 | DEBUG   | resnet50_infer_fp16: ResNet-50 inference 224px, FP16, channels_last
+2026-10-26 12:02:43.006 | DEBUG   | resnet50_infer_fp16: sample 1/5 = 1807.9372 (28 calls, 1.982 s)
+2026-10-26 12:02:44.984 | DEBUG   | resnet50_infer_fp16: sample 2/5 = 1811.6899 (28 calls, 1.978 s)
+2026-10-26 12:02:46.946 | DEBUG   | resnet50_infer_fp16: sample 3/5 = 1827.3900 (28 calls, 1.961 s)
+2026-10-26 12:02:48.908 | DEBUG   | resnet50_infer_fp16: sample 4/5 = 1826.3679 (28 calls, 1.962 s)
+2026-10-26 12:02:50.881 | DEBUG   | resnet50_infer_fp16: sample 5/5 = 1817.2095 (28 calls, 1.972 s)
+2026-10-26 12:02:50.892 | INFO    | resnet50_infer_fp16             1817.21 images/s  cv  0.5%  n=5 | 102.5 W avg | 1389 MHz | 62 °C max | sw_power_cap 100.0%
+2026-10-26 12:02:50.989 | INFO    | [34/34] sustained_gemm_bf16_8192
+2026-10-26 12:03:00.990 | DEBUG   | sustained_gemm_bf16_8192: cooldown 10.0 s, start temp 55 °C
+2026-10-26 12:03:06.193 | DEBUG   | sustained_gemm_bf16_8192 window 0: 49.51 TFLOPS 88.85 W 1099.5 MHz 60 °C
+2026-10-26 12:03:11.226 | DEBUG   | sustained_gemm_bf16_8192 window 1: 49.81 TFLOPS 101.71 W 1094.12 MHz 61 °C
+2026-10-26 12:03:16.181 | DEBUG   | sustained_gemm_bf16_8192 window 2: 50.60 TFLOPS 103.56 W 1108.16 MHz 62 °C
+2026-10-26 12:03:21.176 | DEBUG   | sustained_gemm_bf16_8192 window 3: 50.19 TFLOPS 103.42 W 1111.5 MHz 63 °C
+2026-10-26 12:03:26.138 | DEBUG   | sustained_gemm_bf16_8192 window 4: 50.53 TFLOPS 104.2 W 1114.9 MHz 63 °C
+2026-10-26 12:03:31.092 | DEBUG   | sustained_gemm_bf16_8192 window 5: 50.61 TFLOPS 104.02 W 1118.4 MHz 64 °C
+2026-10-26 12:03:36.070 | DEBUG   | sustained_gemm_bf16_8192 window 6: 50.36 TFLOPS 103.35 W 1117.5 MHz 64 °C
+2026-10-26 12:03:41.086 | DEBUG   | sustained_gemm_bf16_8192 window 7: 49.97 TFLOPS 103.52 W 1105.5 MHz 64 °C
+2026-10-26 12:03:46.081 | DEBUG   | sustained_gemm_bf16_8192 window 8: 50.19 TFLOPS 103.89 W 1098.98 MHz 64 °C
+2026-10-26 12:03:51.069 | DEBUG   | sustained_gemm_bf16_8192 window 9: 50.27 TFLOPS 103.86 W 1113.6 MHz 64 °C
+2026-10-26 12:03:56.025 | DEBUG   | sustained_gemm_bf16_8192 window 10: 50.58 TFLOPS 104.17 W 1120.5 MHz 64 °C
+2026-10-26 12:04:01.004 | DEBUG   | sustained_gemm_bf16_8192 window 11: 50.36 TFLOPS 104.06 W 1118.27 MHz 64 °C
+2026-10-26 12:04:06.003 | DEBUG   | sustained_gemm_bf16_8192 window 12: 50.14 TFLOPS 103.72 W 1111.5 MHz 64 °C
+2026-10-26 12:04:11.020 | DEBUG   | sustained_gemm_bf16_8192 window 13: 49.98 TFLOPS 103.41 W 1106.4 MHz 64 °C
+2026-10-26 12:04:16.008 | DEBUG   | sustained_gemm_bf16_8192 window 14: 50.27 TFLOPS 103.77 W 1104.0 MHz 64 °C
+2026-10-26 12:04:21.027 | DEBUG   | sustained_gemm_bf16_8192 window 15: 49.94 TFLOPS 103.68 W 1100.4 MHz 63 °C
+2026-10-26 12:04:25.983 | DEBUG   | sustained_gemm_bf16_8192 window 16: 50.59 TFLOPS 104.17 W 1109.1 MHz 63 °C
+2026-10-26 12:04:30.928 | DEBUG   | sustained_gemm_bf16_8192 window 17: 50.70 TFLOPS 104.14 W 1116.43 MHz 63 °C
+2026-10-26 12:04:35.929 | DEBUG   | sustained_gemm_bf16_8192 window 18: 50.13 TFLOPS 103.38 W 1094.7 MHz 63 °C
+2026-10-26 12:04:40.920 | DEBUG   | sustained_gemm_bf16_8192 window 19: 50.23 TFLOPS 103.85 W 1092.3 MHz 63 °C
+2026-10-26 12:04:45.905 | DEBUG   | sustained_gemm_bf16_8192 window 20: 50.29 TFLOPS 103.74 W 1110.0 MHz 63 °C
+2026-10-26 12:04:50.861 | DEBUG   | sustained_gemm_bf16_8192 window 21: 50.59 TFLOPS 104.16 W 1115.82 MHz 63 °C
+2026-10-26 12:04:55.822 | DEBUG   | sustained_gemm_bf16_8192 window 22: 50.54 TFLOPS 104.25 W 1111.5 MHz 63 °C
+2026-10-26 12:05:00.781 | DEBUG   | sustained_gemm_bf16_8192 window 23: 50.55 TFLOPS 103.96 W 1112.76 MHz 63 °C
+2026-10-26 12:05:05.785 | DEBUG   | sustained_gemm_bf16_8192 window 24: 50.11 TFLOPS 103.73 W 1095.0 MHz 63 °C
+2026-10-26 12:05:10.779 | DEBUG   | sustained_gemm_bf16_8192 window 25: 50.20 TFLOPS 103.87 W 1102.5 MHz 63 °C
+2026-10-26 12:05:15.754 | DEBUG   | sustained_gemm_bf16_8192 window 26: 50.40 TFLOPS 103.9 W 1117.5 MHz 64 °C
+2026-10-26 12:05:20.731 | DEBUG   | sustained_gemm_bf16_8192 window 27: 50.38 TFLOPS 104.06 W 1114.59 MHz 64 °C
+2026-10-26 12:05:25.694 | DEBUG   | sustained_gemm_bf16_8192 window 28: 50.51 TFLOPS 104.27 W 1100.1 MHz 65 °C
+2026-10-26 12:05:30.656 | DEBUG   | sustained_gemm_bf16_8192 window 29: 50.52 TFLOPS 104.08 W 1107.55 MHz 65 °C
+2026-10-26 12:05:35.654 | DEBUG   | sustained_gemm_bf16_8192 window 30: 50.16 TFLOPS 103.76 W 1112.4 MHz 65 °C
+2026-10-26 12:05:40.650 | DEBUG   | sustained_gemm_bf16_8192 window 31: 50.19 TFLOPS 103.87 W 1099.5 MHz 65 °C
+2026-10-26 12:05:45.641 | DEBUG   | sustained_gemm_bf16_8192 window 32: 50.23 TFLOPS 103.86 W 1109.1 MHz 65 °C
+2026-10-26 12:05:50.624 | DEBUG   | sustained_gemm_bf16_8192 window 33: 50.32 TFLOPS 104.22 W 1114.8 MHz 65 °C
+2026-10-26 12:05:55.588 | DEBUG   | sustained_gemm_bf16_8192 window 34: 50.50 TFLOPS 104.49 W 1108.47 MHz 65 °C
+2026-10-26 12:06:00.561 | DEBUG   | sustained_gemm_bf16_8192 window 35: 50.42 TFLOPS 103.99 W 1115.7 MHz 64 °C
+2026-10-26 12:06:05.560 | DEBUG   | sustained_gemm_bf16_8192 window 36: 50.15 TFLOPS 103.91 W 1107.0 MHz 64 °C
+2026-10-26 12:06:05.571 | INFO    | sustained_gemm_bf16_8192          50.29 TFLOPS    cv  0.5%  n=37 | 103.4 W avg | 1108 MHz | 65 °C max | sw_power_cap 99.7%
+2026-10-26 12:06:05.649 | INFO    | === Finished in 21.0 min: 30 tests ok, 0 failed. Results: /home/kiubu/Schreibtisch/Projekte/3070ti-unlock/results/20261026-114448_unlocked_unlocked-first ===

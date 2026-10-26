@@ -1,0 +1,30 @@
+$ lspci -vv -nn -D -d 10de: 2>/dev/null | head -120
+# exit=0
+0000:01:00.0 VGA compatible controller [0300]: NVIDIA Corporation GA104M [Geforce RTX 3070 Ti Laptop GPU] [10de:24e0] (rev a1) (prog-if 00 [VGA controller])
+	DeviceName: NVIDIA Graphics Device
+	Subsystem: Hewlett-Packard Company GA104M [Geforce RTX 3070 Ti Laptop GPU] [103c:8a4c]
+	Control: I/O+ Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx+
+	Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+	Latency: 0
+	Interrupt: pin A routed to IRQ 204
+	IOMMU group: 17
+	Region 0: Memory at 85000000 (32-bit, non-prefetchable) [size=16M]
+	Region 1: Memory at 6000000000 (64-bit, prefetchable) [size=8G]
+	Region 3: Memory at 6200000000 (64-bit, prefetchable) [size=32M]
+	Region 5: I/O ports at 4000 [size=128]
+	Expansion ROM at 86000000 [virtual] [disabled] [size=512K]
+	Capabilities: <access denied>
+	Kernel driver in use: nvidia
+	Kernel modules: nvidiafb, nouveau, nvidia_drm, nvidia
+
+0000:01:00.1 Audio device [0403]: NVIDIA Corporation GA104 High Definition Audio Controller [10de:228b] (rev a1)
+	Subsystem: Hewlett-Packard Company GA104 High Definition Audio Controller [103c:8a4c]
+	Control: I/O- Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+	Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+	Latency: 0, Cache Line Size: 64 bytes
+	Interrupt: pin B routed to IRQ 17
+	IOMMU group: 17
+	Region 0: Memory at 86080000 (32-bit, non-prefetchable) [size=16K]
+	Capabilities: <access denied>
+	Kernel driver in use: snd_hda_intel
+	Kernel modules: snd_hda_intel

@@ -1,0 +1,23 @@
+$ systemctl is-active nvidia-powerd; journalctl -u nvidia-powerd -b --no-pager 2>/dev/null | tail -20
+# exit=0
+active
+Oct 26 10:46:58 Kiubu nvidia-powerd[1810]: ERROR! JPAC is not created/already destroyed, ignoring request.
+Oct 26 10:53:17 Kiubu nvidia-powerd[1810]: ERROR! JPAC is not created/already destroyed, ignoring request.
+Oct 26 10:53:18 Kiubu nvidia-powerd[1810]: ERROR! JPAC is not created/already destroyed, ignoring request.
+Oct 26 10:54:31 Kiubu nvidia-powerd[1810]: ERROR! JPAC is not created/already destroyed, ignoring request.
+Oct 26 10:54:34 Kiubu nvidia-powerd[1810]: ERROR! JPAC is not created/already destroyed, ignoring request.
+Oct 26 10:56:53 Kiubu nvidia-powerd[1810]: ERROR! JPAC is not created/already destroyed, ignoring request.
+Oct 26 10:56:59 Kiubu nvidia-powerd[1810]: ERROR! JPAC is not created/already destroyed, ignoring request.
+Oct 26 10:58:18 Kiubu nvidia-powerd[1810]: ERROR! JPAC is not created/already destroyed, ignoring request.
+Oct 26 10:58:26 Kiubu nvidia-powerd[1810]: ERROR! JPAC is not created/already destroyed, ignoring request.
+Oct 26 11:07:33 Kiubu nvidia-powerd[1810]: ERROR! JPAC is not created/already destroyed, ignoring request.
+Oct 26 11:07:37 Kiubu nvidia-powerd[1810]: ERROR! JPAC is not created/already destroyed, ignoring request.
+Oct 26 11:07:38 Kiubu nvidia-powerd[1810]: ERROR! JPAC is not created/already destroyed, ignoring request.
+Oct 26 11:24:26 Kiubu nvidia-powerd[1810]: ERROR! JPAC is not created/already destroyed, ignoring request.
+Oct 26 11:24:28 Kiubu nvidia-powerd[1810]: ERROR! JPAC is not created/already destroyed, ignoring request.
+Oct 26 11:41:43 Kiubu nvidia-powerd[1810]: ERROR! JPAC is not created/already destroyed, ignoring request.
+Oct 26 11:43:09 Kiubu nvidia-powerd[1810]: ERROR! JPAC is not created/already destroyed, ignoring request.
+Oct 26 11:43:11 Kiubu nvidia-powerd[1810]: ERROR! JPAC is not created/already destroyed, ignoring request.
+Oct 26 11:43:13 Kiubu nvidia-powerd[1810]: ERROR! JPAC is not created/already destroyed, ignoring request.
+Oct 26 11:43:26 Kiubu nvidia-powerd[1810]: ERROR! JPAC is not created/already destroyed, ignoring request.
+Oct 26 11:44:06 Kiubu nvidia-powerd[1810]: ERROR! JPAC is not created/already destroyed, ignoring request.

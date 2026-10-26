@@ -1,0 +1,40 @@
+Der Review hat einige echte Punkte gefunden, vor allem zu wenig Grafikspeicher beim GPT-Training und eine unzuverlässige Netzteil-Erkennung. Ich baue die Korrekturen ein.
+
+Chris, die Benchmark-Suite ist fertig: `3070ti-unlock.tar.gz`. Sie misst Vorher und Nachher unter identischen Bedingungen und erzeugt am Ende einen Report, den du direkt auf GitHub stellen kannst. Auf deinem Laptop ist sie noch nicht gelaufen: PyTorch konnte ich hier nicht ausführen. Den Report-Generator habe ich mit Beispieldaten getestet, den GPU-Code hat zusätzlich ein unabhängiger Review geprüft. Dessen Funde habe ich eingebaut. Der wichtigste war, dass das GPT-Training mit Batch 8 nicht in 8 GB passt und deshalb jetzt mit Batch 4 startet. Deshalb gibt es einen Smoke-Test als Schritt 4.
+
+**Was getestet wird**
+- **Kontrollen:** FP32, INT8 und Speicherbandbreite dürfen sich nicht ändern. Das belegt, dass sich die beiden Boots nur im Unlock unterscheiden.
+- **Matrix-Rechnung:** FP16, BF16 und TF32 jeweils bei 2048, 4096 und 8192.
+- **Kernels:** Attention vorwärts und rückwärts sowie Convolution.
+- **Anwendungen:** LLM-Prompt-Verarbeitung und Textgenerierung, GPT- und ResNet-Training, ResNet-Inferenz.
+- **Dauerlast:** 3 Minuten mit Leistung, Takt und Temperatur über die Zeit.
+- **Korrektheit:** Die Ergebnisse müssen in beiden Phasen bitgleich sein.
+- **Pro Test:** Aufwärmen, 5 Messungen und vorher Abkühlen auf 55 °C, damit beide Phasen gleich starten. Leistung, Takt, Temperatur und Throttling werden mit 10 Hz mitgeschrieben.
+
+**Ablauf**
+1. **Entpacken** (ca. 1 Min.):
+   ```
+   mkdir -p ~/Schreibtisch/Projekte && tar -xzf ~/Downloads/3070ti-unlock.tar.gz -C ~/Schreibtisch/Projekte
+   cd ~/Schreibtisch/Projekte/3070ti-unlock
+   ```
+2. **Umgebung einrichten** (ca. 10–15 Min., lädt PyTorch mit rund 3 GB): `./setup_env.sh`. Am Ende muss `SETUP OK` erscheinen.
+3. **Vorbereiten** (ca. 3 Min. plus Neustart): `./run.sh prepare`. Das schaltet Runtime D3 ab; falls du das schon gemacht hast, merkt das Skript es. Nach dem Neustart prüft `./run.sh status`, ob AC `True`, Profil `performance` und Runtime D3 `Disabled` sind.
+4. **Smoke-Test** (ca. 3 Min.): `./run.sh smoke`. Er prüft, ob jeder Test durchläuft. Schick mir `results/*_smoke/run.log`, falls dort `ERROR` steht.
+5. **Baseline** (ca. 30–40 Min.): `./run.sh baseline`. Netzteil dran, Deckel offen, sonst nichts auf der GPU laufen lassen.
+6. **gpu-unlock installieren** (ca. 10 Min. plus Neustart): `./run.sh install-unlock`. Bei einem blauen MOK-Bildschirm „Enroll MOK“ wählen. Danach muss `./run.sh status` den Zustand `unlocked` zeigen.
+7. **Unlocked-Lauf** (ca. 30–40 Min.): `./run.sh unlocked`
+8. **Report erzeugen** (ca. 1 Min.): `./run.sh compare`. Er landet unter `reports/…/report.md`, zusammen mit Diagrammen und dem vorausgefüllten Kompatibilitätsbericht für das gpu-unlock-Repo in `compat_report.md`.
+
+**Logs:** Pro Lauf entsteht unter `results/` ein eigener Ordner mit:
+- `run.log`: lesbares Protokoll
+- `results.jsonl` und `results.csv`: alle Einzelmessungen
+- `telemetry.csv`: Leistung, Takt und Temperatur über die Zeit
+- `env/`: unveränderte Ausgaben von nvidia-smi, lspci und dem Kernel-Log
+- `manifest.json`: SHA-256-Prüfsummen aller Dateien
+
+Die Admin-Schritte (prepare, install-unlock) protokolliert die Suite unter `logs/`.
+
+**Gut zu wissen**
+- **Phasenprüfung:** Die Suite verweigert den Start, wenn die Phase nicht zum System passt. Läuft zum Beispiel die Baseline, obwohl der Unlock aktiv ist, bricht sie ab und sagt dir, was zu tun ist.
+- **Sprache:** Report und README sind auf Englisch, weil die gpu-unlock-Community englisch arbeitet. Wenn du eine deutsche Fassung willst, sag Bescheid.
+- **Stable Diffusion** ist optional, weil dafür ein Modell heruntergeladen werden muss: `WITH_SD=1 ./setup_env.sh`, danach in beiden Phasen `--sd-model stabilityai/sd-turbo` anhängen.

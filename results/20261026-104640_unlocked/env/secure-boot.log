@@ -1,0 +1,3 @@
+$ mokutil --sb-state 2>/dev/null
+# exit=0
+SecureBoot disabled
