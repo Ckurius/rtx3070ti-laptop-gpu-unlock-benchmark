@@ -41,7 +41,7 @@ test), yet finishes **48 % more work**, because each tensor-core instruction now
 
 **Trustworthy comparison.** Every validity check passed: same driver, kernel, software and power cap. Control
 tests (FP32, INT8, memory bandwidth) stayed unchanged within ±2 %. GEMM outputs are bit-identical in both phases,
-and a repeat run of the unlocked phase reproduced the results within 0.6 %.
+and repeat runs of both phases (the stock repeat in a separate boot) reproduced the results within 1 %.
 
 **Full report** with every test, power/thermal data and raw logs: [series 1 – PyTorch](reports/series1-pytorch/report.md)  
 ### Series 2: llama.cpp with real GGUF models
