@@ -2,8 +2,8 @@
 
 A reproducible before/after benchmark of [Zagitta/gpu-unlock](https://github.com/Zagitta/gpu-unlock) on an
 NVIDIA GeForce RTX 3070 Ti **Laptop** GPU (GA104, `10de:24e0`) in an HP Omen 16-k0620ng. gpu-unlock is a Linux kernel module that removes the
-half-rate limit on FP16/BF16/TF32 tensor-core math with FP32 accumulation on GeForce Ampere cards. At the time of
-writing, no laptop GPU had been reported in its compatibility list.
+half-rate limit on FP16/BF16/TF32 tensor-core math with FP32 accumulation on GeForce Ampere cards. Other laptop GPUs have been
+reported in the gpu-unlock issues (#88, #103); this is the first GA104 laptop result.
 
 The suite runs an identical test list twice, once on the stock card (**baseline**) and once with gpu_unlock active
 (**unlocked**). It then produces a report with validity checks, all raw logs and SHA-256 checksums.
@@ -40,8 +40,8 @@ test), yet finishes **48 % more work**, because each tensor-core instruction now
 </picture>
 
 **Trustworthy comparison.** Every validity check passed: same driver, kernel, software and power cap. Control
-tests (FP32, INT8, memory bandwidth) stayed unchanged within ±2 %. GEMM outputs are bit-identical in both phases,
-and repeat runs of both phases (the stock repeat in a separate boot) reproduced the results within 1 %.
+tests (FP32, INT8, memory bandwidth) stayed unchanged within ±2.1 %. GEMM outputs are bit-identical in both phases,
+and repeat runs of both phases (the stock repeat in a separate boot) reproduced the headline results within 1 % (every test within 1.7 %).
 
 **Full report** with every test, power/thermal data and raw logs: [series 1 – PyTorch](reports/series1-pytorch/report.md)  
 ### Series 2: llama.cpp with real GGUF models
@@ -64,8 +64,8 @@ One model (Qwen2.5-3B-Instruct) in four weight formats, all created from the sam
 
 **Only BF16 models benefit.** llama.cpp computes BF16 weights with FP32 accumulation, which is exactly the path
 gpu-unlock opens. Stock BF16 is 23 % slower than F16 at prompt processing; unlocked, it is on par. F16 weights use FP16
-accumulation, which was never rate-limited on GeForce. Q8_0 and Q4_K_M run on INT8 kernels. Both stay within
-run-to-run noise. **For everyday quantized GGUF use (Ollama, LM Studio) the unlock brings no measurable gain**; the
+accumulation, which was never rate-limited on GeForce. Q8_0 and Q4_K_M run on INT8 kernels. Across these formats prompt
+processing moves by −5.4 to +2.8 % (one F16 outlier with flash attention off, the rest within ±3 %). **For everyday quantized GGUF use (Ollama, LM Studio) the unlock brings no measurable gain**; the
 benefit is in BF16 and PyTorch workloads (series 1). All 16 validity checks passed (same llama.cpp build,
 SHA-256-identical model files).
 
