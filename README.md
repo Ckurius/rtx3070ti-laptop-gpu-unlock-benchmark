@@ -165,3 +165,8 @@ of every test is kept in `raw/`.
 
 gpu-unlock is experimental third-party software that writes undocumented GPU registers. This repository only
 measures its effect. Use at your own risk.
+
+## License
+
+The benchmark scripts, reports and measurement data in this repository are released under the [MIT License](LICENSE).
+gpu-unlock itself is not part of this repository and is licensed separately by its authors (GPL-2.0).
